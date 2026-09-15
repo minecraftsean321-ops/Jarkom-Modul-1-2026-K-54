@@ -11,7 +11,7 @@ Setting client Alice
 Setting client Mika  
 <img width="550" height="350" alt="image" src="https://github.com/user-attachments/assets/2489d52c-444b-4665-bb31-d9fe704e7452" />
 
-Setting client Chisa
+Setting client Chisa  
 <img width="550" height="350" alt="WhatsApp Image 2026-09-15 at 12 46 07" src="https://github.com/user-attachments/assets/34bbee29-e16f-43f0-89cf-69a91dd107d8" />
 
 Setting client Knights  
