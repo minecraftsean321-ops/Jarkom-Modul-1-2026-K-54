@@ -76,6 +76,20 @@ Pengujian:
 
 6. Mika mencurigai adanya anomali traffic pada segmen jaringannya. Jalankan generator traffic berikut (link file) pada node Mika, lalu lakukan packet sniffing menggunakan Wireshark pada interface node Mika. Terapkan display filter khusus untuk menyaring paket yang berprotokol DNS atau ICMP. Tunjukkan screenshot hasil filter beserta ringkasan paket yang lolos.
 
+- Menjalankan paket sniffing (Wireshark) pada Mika.  
+  
+<img width="600" height="474" alt="image" src="https://github.com/user-attachments/assets/29ab3cb5-330e-4af1-87d6-038a37417df2" />
+
+- Download Fila Generator Traffic dan beri izin eksekusi kepada file
+
+<img width="1059" height="216" alt="image" src="https://github.com/user-attachments/assets/5c9ce0a8-7e1c-4f9b-b16e-4ce4f92d3a4c" />
+
+<img width="674" height="84" alt="image" src="https://github.com/user-attachments/assets/df69a1c2-41c1-4a66-a5f6-62b0c341ceec" />
+
+- Analisis hasil display filter di Wireshark   
+<img width="1920" height="630" alt="image" src="https://github.com/user-attachments/assets/1b96567f-572a-4256-83e3-890c9e60433e" />
+
+
 7. Chisa memutuskan mendirikan FTP Server pada node miliknya dengan shared folder di /var/wired/data. Terapkan kebijakan akses: user alice (hak akses read & write), user mika (dibatasi read-only), dan user eiri (dibatasi tanpa izin akses / blacklist). Buktikan konfigurasi dengan membuat file signal_alice.txt dari user alice, dan buktikan penolakan akses saat user eiri mencoba login.
 
 8. Kelompok rahasia Knights perlu mengirimkan dokumen laporan intelijen ke FTP Server Chisa. Lakukan koneksi FTP client dari node Knights ke FTP Server Chisa menggunakan akun alice. Upload file berikut (link file). Analisis sesi Wireshark dan sebutkan: perintah FTP untuk upload (STOR), kode status sukses server (226), dan port data TCP yang dinegosiasikan pada mode PASV.
