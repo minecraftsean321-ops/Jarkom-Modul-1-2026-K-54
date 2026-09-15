@@ -11,6 +11,11 @@ Setting client Alice
 Setting client Mika  
 <img width="550" height="350" alt="image" src="https://github.com/user-attachments/assets/2489d52c-444b-4665-bb31-d9fe704e7452" />
 
+Konfigurasi Router Lain   
+<img width="450" height="110" alt="image" src="https://github.com/user-attachments/assets/07ff13c7-d747-4a52-8738-c836352ed009" />
+
+Agar router bisa bertindak sebagai gateaway bagi setiap subnet.
+
 
 2. Karena menurut Lain pada saat itu The Wired masih terisolasi dari dunia luar, konfigurasikan router Lain agar dapat tersambung langsung ke jaringan internet publik melalui NAT/DHCP pada interface eth0.
 
