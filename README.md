@@ -89,6 +89,17 @@ Pengujian:
 - Analisis hasil display filter di Wireshark   
 <img width="1920" height="630" alt="image" src="https://github.com/user-attachments/assets/1b96567f-572a-4256-83e3-890c9e60433e" />
 
+1. Paket DNS (Protocol: DNS):
+
+- Traffic: Node Mika (192.238.1.3) melakukan query DNS (Standard query) ke DNS Server (192.168.122.1 dan 8.8.8.8) untuk mencari alamat IP dari domain drive.google.com dan drive.usercontent.google.com.
+
+- Response: DNS Server memberikan jawaban (Standard query response) berisi alokasi IP Google (seperti 64.233.170.138, 142.250.4.132, dsb.).
+
+2. Paket ICMP (Protocol: ICMP):
+
+- Traffic: Terdapat paket ICMP dari 192.238.1.3 ke 8.8.8.8.
+
+- Status: Muncul pesan Destination unreachable (Port unreachable) yang mengindikasikan adanya percobaan pengiriman pesan/paket ke port tertentu yang tidak aktif atau ditolak oleh perantara jaringan.
 
 7. Chisa memutuskan mendirikan FTP Server pada node miliknya dengan shared folder di /var/wired/data. Terapkan kebijakan akses: user alice (hak akses read & write), user mika (dibatasi read-only), dan user eiri (dibatasi tanpa izin akses / blacklist). Buktikan konfigurasi dengan membuat file signal_alice.txt dari user alice, dan buktikan penolakan akses saat user eiri mencoba login.
 
