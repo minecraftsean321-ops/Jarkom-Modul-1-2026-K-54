@@ -180,4 +180,11 @@ Download File (Membuktikan Akses Read) & Coba Upload File Baru (Membuktikan Pemb
 
     <img width="1538" height="890" alt="image" src="https://github.com/user-attachments/assets/f0483c8f-218e-4fb5-877b-dc473264e4f3" />
 
+Analisis Hasil Capture ICMP (Soal 10):
+
+1. Nilai Type dan Code ICMP:
+- Echo Request (Knights $\rightarrow$ Chisa): Type = 8, Code = 0
+- Echo Reply (Chisa $\rightarrow$ Knights): Type = 0, Code = 0
+2. Spesifikasi Paket: Total panjang paket adalah 170 bytes (terdiri dari payload data 128 bytes ditambah header).
+3. Performa & RTT: Latensi balasan paket pertama adalah 0.616 ms dengan tingkat packet loss 0%, mengindikasikan koneksi antara segmen Knights dan Chisa berjalan sangat stabil.
     
