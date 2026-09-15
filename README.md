@@ -105,6 +105,24 @@ Pengujian:
 
 8. Kelompok rahasia Knights perlu mengirimkan dokumen laporan intelijen ke FTP Server Chisa. Lakukan koneksi FTP client dari node Knights ke FTP Server Chisa menggunakan akun alice. Upload file berikut (link file). Analisis sesi Wireshark dan sebutkan: perintah FTP untuk upload (STOR), kode status sukses server (226), dan port data TCP yang dinegosiasikan pada mode PASV.
 
+1. Menjalankan Wireshark Capture dan Download file laporan Knights.
+
+  <img width="688" height="258" alt="image" src="https://github.com/user-attachments/assets/e7c4e3b9-f66a-4323-b97c-8029fbaca211" />
+
+  <img width="1061" height="228" alt="image" src="https://github.com/user-attachments/assets/14b51af6-4c97-4eab-8ac7-e184d782819f" />
+
+2. Mengupload file dari Knights ke Chisa
+
+   - Koneksi ke FTP server Chisa
+     <img width="1055" height="762" alt="image" src="https://github.com/user-attachments/assets/304fa9a4-edb9-4f0f-aaba-0561cbded5a8" />
+
+     <img width="1050" height="208" alt="image" src="https://github.com/user-attachments/assets/f6d6e5f0-251c-4e13-8c67-3f869e3ca0d3" />
+
+- Analisis Display Filter Wireshark
+  
+  <img width="1920" height="699" alt="image" src="https://github.com/user-attachments/assets/ecdd62b2-44ab-4417-83ef-df02a9875bd0" />
+
+
 9. Mika mengakses dokumen Protokol Tujuh di (link file) dari FTP Server Chisa. Dari node Mika, unduh file tersebut menggunakan akun mika. Setelah itu, buktikan pembatasan read-only dengayahn mencoba mengunggah file baru dari akun mika, dan tunjukkan pesan error respon server (error 550 Permission denied) saat mika mencoba melakukan upload.
 
 10. Knights melancarkan uji ketahanan koneksi ke server Chisa untuk menguji latensi jaringan The Wired. Kirimkan paket ping dari node Knights ke node Chisa dengan payload khusus 128 bytes dan interval 0.3 detik sebanyak 77 paket (ping -c 77 -s 128 -i 0.3 <IP_Chisa>). Buka Wireshark, catat nilai ICMP Type dan Code untuk Echo Request vs Echo Reply, serta analisis packet loss dan RTT (min/avg/max).
