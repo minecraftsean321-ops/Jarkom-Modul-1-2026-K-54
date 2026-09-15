@@ -134,4 +134,12 @@ Pengujian:
 
 9. Mika mengakses dokumen Protokol Tujuh di (link file) dari FTP Server Chisa. Dari node Mika, unduh file tersebut menggunakan akun mika. Setelah itu, buktikan pembatasan read-only dengayahn mencoba mengunggah file baru dari akun mika, dan tunjukkan pesan error respon server (error 550 Permission denied) saat mika mencoba melakukan upload.
 
+Step 1: Download File Menggunakan curl di Node Chisa
+<img width="718" height="478" alt="Screenshot 2026-09-15 at 16 02 36" src="https://github.com/user-attachments/assets/ff1976f8-00c3-4d1c-8172-5ac8c0f80dfe" />
+
+Step 2: Eksekusi & Bukti Pengujian Soal No. 9 di Node Mika
+Download File (Membuktikan Akses Read) & Coba Upload File Baru (Membuktikan Pembatasan Read-Only)
+<img width="717" height="253" alt="Screenshot 2026-09-15 at 16 05 05" src="https://github.com/user-attachments/assets/7873abb7-0c4a-4468-8504-2eb5a4a3406d" />
+
+
 10. Knights melancarkan uji ketahanan koneksi ke server Chisa untuk menguji latensi jaringan The Wired. Kirimkan paket ping dari node Knights ke node Chisa dengan payload khusus 128 bytes dan interval 0.3 detik sebanyak 77 paket (ping -c 77 -s 128 -i 0.3 <IP_Chisa>). Buka Wireshark, catat nilai ICMP Type dan Code untuk Echo Request vs Echo Reply, serta analisis packet loss dan RTT (min/avg/max).
