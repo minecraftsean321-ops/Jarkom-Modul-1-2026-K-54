@@ -143,3 +143,40 @@ Download File (Membuktikan Akses Read) & Coba Upload File Baru (Membuktikan Pemb
 
 
 10. Knights melancarkan uji ketahanan koneksi ke server Chisa untuk menguji latensi jaringan The Wired. Kirimkan paket ping dari node Knights ke node Chisa dengan payload khusus 128 bytes dan interval 0.3 detik sebanyak 77 paket (ping -c 77 -s 128 -i 0.3 <IP_Chisa>). Buka Wireshark, catat nilai ICMP Type dan Code untuk Echo Request vs Echo Reply, serta analisis packet loss dan RTT (min/avg/max).
+
+    1. Menjalankan Capture Wireshark di Node Knights
+       <img width="689" height="266" alt="image" src="https://github.com/user-attachments/assets/b5394725-c458-4cde-9c15-2ab280494b83" />
+
+    2. Menjalankan ping khusus
+   
+    ```
+    ping -c 77 -s 128 -i 0.3 192.238.2.2
+    ```
+
+    <img width="963" height="473" alt="image" src="https://github.com/user-attachments/assets/8a34d302-ad49-488f-8cf9-7f5cda278e7d" />
+
+    3. Catat hasil Statistik Ping dari Terminal Knights
+
+    <img width="821" height="82" alt="image" src="https://github.com/user-attachments/assets/48ef5c43-13ea-40b2-9cf9-72795e37857c" />
+
+    4. Analisis ICMP Type & Code di Wireshark
+
+       Menggunakan display filter:
+       
+        ```
+        icmp
+        ```
+
+    <img width="1920" height="790" alt="image" src="https://github.com/user-attachments/assets/487c775e-3da2-4967-a27e-ad3b013bd255" />
+
+    5. Mengambil data type dan code di wireshark
+
+    ICMP Type and Code (Echo Request):
+
+    <img width="1542" height="884" alt="image" src="https://github.com/user-attachments/assets/dd926827-e3b3-41d8-8ab2-    2505b0c7a72b" />
+
+    ICMP Type and Code (Echo Reply):
+
+    <img width="1538" height="890" alt="image" src="https://github.com/user-attachments/assets/f0483c8f-218e-4fb5-877b-dc473264e4f3" />
+
+    
