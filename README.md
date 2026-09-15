@@ -173,7 +173,8 @@ Download File (Membuktikan Akses Read) & Coba Upload File Baru (Membuktikan Pemb
 
     ICMP Type and Code (Echo Request):
 
-    <img width="1542" height="884" alt="image" src="https://github.com/user-attachments/assets/dd926827-e3b3-41d8-8ab2-    2505b0c7a72b" />
+    <img width="1539" height="883" alt="image" src="https://github.com/user-attachments/assets/c0528e96-7297-47f7-aaeb-9c048e869bc2" />
+
 
     ICMP Type and Code (Echo Reply):
 
