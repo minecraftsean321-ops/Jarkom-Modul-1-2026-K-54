@@ -39,6 +39,28 @@ Tes Ping Lintas Subnet dari Alice ke Chisa dan Eiri
 
 4. Lain ingin agar setiap Entitas (Client) memiliki kemandirian di The Wired. Konfigurasikan firewall/iptables (NAT Masquerade) dan DNS resolver agar setiap Client dapat terhubung ke internet secara mandiri (dapat melakukan ping ke 8.8.8.8 dan membuka domain web google.com).
 
+- Konfigurasi NAT dan Masquerede & IP FOWARDING di Router Lain
+<img width="1063" height="116" alt="image" src="https://github.com/user-attachments/assets/804a4d86-b0eb-4cf5-9894-b97298a0c9a5" />
+
+- Konfigurasi DNS Resolver di semua Client
+Kita perlu menjalankan kode dibawah ini ke setiap client. Agar mereka resolve domain google.com.
+
+```
+echo "nameserver 192.168.122.1" > /etc/resolv.conf
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+```
+
+<img width="1059" height="109" alt="image" src="https://github.com/user-attachments/assets/01f1b229-f40f-46f0-a982-e30bfdb9b232" />
+
+Pengujian:
+
+- Tes ping ke IP public (8.8.8.8)
+<img width="1063" height="385" alt="image" src="https://github.com/user-attachments/assets/eda25408-e7b7-486d-a1ec-dc3294522ac8" />
+
+- Tes ping ke domain (google.com)  
+
+<img width="1063" height="364" alt="image" src="https://github.com/user-attachments/assets/8063305a-649a-42be-a417-a11f5248d976" />
+
 
 5. Eiri tetap berupaya menanamkan kekacauan ke dalam jaringan. Untuk mengantisipasi restart tiba-tiba, pastikan seluruh konfigurasi jaringan tidak hilang saat semua node di-restart. Buat script verifikasi di /root/cek_status.sh pada router Lain yang menampilkan ringkasan interface (ip -br a) dan status tabel NAT (iptables -t nat -L -v -n) setelah reboot.
 
