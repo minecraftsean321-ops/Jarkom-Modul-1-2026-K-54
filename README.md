@@ -11,6 +11,15 @@ Setting client Alice
 Setting client Mika  
 <img width="550" height="350" alt="image" src="https://github.com/user-attachments/assets/2489d52c-444b-4665-bb31-d9fe704e7452" />
 
+Setting client Chisa
+<img width="550" height="350" alt="WhatsApp Image 2026-09-15 at 12 46 07" src="https://github.com/user-attachments/assets/34bbee29-e16f-43f0-89cf-69a91dd107d8" />
+
+Setting client Knights  
+<img width="550" height="350" alt="WhatsApp Image 2026-09-15 at 12 46 07 (1)" src="https://github.com/user-attachments/assets/e5686ae3-57b5-4aac-ace2-0e53bd1dcc49" />
+
+Setting client Eiri  
+<img width="550" height="350" alt="WhatsApp Image 2026-09-15 at 12 46 08" src="https://github.com/user-attachments/assets/ea27d93b-051a-4e1e-932a-dce688b9dfbb" />
+
 Konfigurasi Router Lain   
 <img width="450" height="110" alt="image" src="https://github.com/user-attachments/assets/07ff13c7-d747-4a52-8738-c836352ed009" />
 
