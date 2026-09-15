@@ -64,6 +64,15 @@ Pengujian:
 
 5. Eiri tetap berupaya menanamkan kekacauan ke dalam jaringan. Untuk mengantisipasi restart tiba-tiba, pastikan seluruh konfigurasi jaringan tidak hilang saat semua node di-restart. Buat script verifikasi di /root/cek_status.sh pada router Lain yang menampilkan ringkasan interface (ip -br a) dan status tabel NAT (iptables -t nat -L -v -n) setelah reboot.
 
+- Buat Script Verifikasi /root/cek_status.sh di Router Lain
+<img width="682" height="478" alt="Screenshot 2026-09-15 at 13 52 49" src="https://github.com/user-attachments/assets/9c9015e9-9fc4-4065-b604-a8f38fa700f3" />
+
+- Konfigurasi Persistent (Auto-Load saat Startup)
+<img width="680" height="478" alt="Screenshot 2026-09-15 at 13 54 39" src="https://github.com/user-attachments/assets/3b0ac0c8-f690-46ca-8ca1-45b4e731cf3b" />
+
+- Pengujian Script & Simulasi Reboot
+<img width="794" height="559" alt="Screenshot 2026-09-15 at 13 56 44" src="https://github.com/user-attachments/assets/40013ba3-f441-4192-b884-8f1adcced997" />
+
 
 6. Mika mencurigai adanya anomali traffic pada segmen jaringannya. Jalankan generator traffic berikut (link file) pada node Mika, lalu lakukan packet sniffing menggunakan Wireshark pada interface node Mika. Terapkan display filter khusus untuk menyaring paket yang berprotokol DNS atau ICMP. Tunjukkan screenshot hasil filter beserta ringkasan paket yang lolos.
 
