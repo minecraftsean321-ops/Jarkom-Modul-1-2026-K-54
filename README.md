@@ -103,6 +103,15 @@ Pengujian:
 
 7. Chisa memutuskan mendirikan FTP Server pada node miliknya dengan shared folder di /var/wired/data. Terapkan kebijakan akses: user alice (hak akses read & write), user mika (dibatasi read-only), dan user eiri (dibatasi tanpa izin akses / blacklist). Buktikan konfigurasi dengan membuat file signal_alice.txt dari user alice, dan buktikan penolakan akses saat user eiri mencoba login.
 
+- Kode konfigurasi utama vsftpd
+  <img width="791" height="557" alt="Screenshot 2026-09-15 at 14 52 57" src="https://github.com/user-attachments/assets/91361eb4-eeac-4921-9bdd-24adc395379e" />
+- Bukti 1: User alice (Read & Write). Buka console Alice, jalankan perintah untuk membuat dan upload file signal_alice.txt
+  <img width="787" height="509" alt="Screenshot 2026-09-15 at 15 32 46" src="https://github.com/user-attachments/assets/ca71c7c2-c4f2-43cc-a993-4cf2e43029c9" />
+- Bukti 2: User mika (Read-Only). Buka console Mika, coba upload file untuk membuktikan penolakan hak akses write:
+  <img width="786" height="471" alt="Screenshot 2026-09-15 at 15 36 41" src="https://github.com/user-attachments/assets/546f59b5-7f29-44b4-80d6-c332c54f06e4" />
+- Bukti 3: User eiri (Blacklist / Penolakan Akses). Buka console Eiri, coba login dengan akun eiri:
+  <img width="788" height="553" alt="Screenshot 2026-09-15 at 15 38 44" src="https://github.com/user-attachments/assets/0103742a-96fb-41c9-952b-4e0e8d2b564e" />
+
 8. Kelompok rahasia Knights perlu mengirimkan dokumen laporan intelijen ke FTP Server Chisa. Lakukan koneksi FTP client dari node Knights ke FTP Server Chisa menggunakan akun alice. Upload file berikut (link file). Analisis sesi Wireshark dan sebutkan: perintah FTP untuk upload (STOR), kode status sukses server (226), dan port data TCP yang dinegosiasikan pada mode PASV.
 
 1. Menjalankan Wireshark Capture dan Download file laporan Knights.
