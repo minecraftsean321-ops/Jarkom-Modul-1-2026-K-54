@@ -14,6 +14,13 @@ Laporan praktikum pembangunan topologi jaringan **"The Wired"** menggunakan GNS3
 8. [Upload File FTP dari Knights ke Chisa](#8-upload-file-ftp-dari-knights-ke-chisa)
 9. [Pembatasan Read-Only Akun Mika di FTP Server](#9-pembatasan-read-only-akun-mika-di-ftp-server)
 10. [Uji Ketahanan Koneksi (Ping Stress Test)](#10-uji-ketahanan-koneksi-ping-stress-test)
+16. [Analisis FTP Credential Theft (wired_ftp_theft.pcap)](#16-analisis-ftp-credential-theft-wired_ftp_theftpcap)
+17. [Analisis HTTP C2 Payload Download (wired_http_c2.pcap)](#17-analisis-http-c2-payload-download-wired_http_c2pcap)
+18. [Analisis SMB Malware Transfer (wired_smb_transfer.pcapng)](#18-analisis-smb-malware-transfer-wired_smb_transferpcapng)
+19. [Analisis SMTP Extortion Email (wired_smtp_threat.pcap)](#19-analisis-smtp-extortion-email-wired_smtp_threatpcap)
+20. [Analisis TLS Decryption (wired_tls_decrypt.pcapng)](#20-analisis-tls-decryption-wired_tls_decryptpcapng)
+
+> **Catatan:** Penomoran bagian 16–20 mengikuti nomor soal pada modul praktikum asli (soal 11–15 tidak termasuk dalam cakupan kelompok ini).
 
 ---
 
@@ -293,222 +300,247 @@ icmp
 
 ---
 
-## 16. Eiri meletakkan file malware di server. Dari file capture wired_ftp_theft.pcap, lakukan analisis lalu lintas FTP untuk mengidentifikasi alamat IP server FTP penyerang, banner software FTP yang digunakan, kredensial login penyerang, serta ukuran (size in bytes) dari file malware knights_payload.exe yang diunduh. Validasi temuan kalian pada socket server:
-	(link file) nc [IP_Group] 3403 
+## 16. Analisis FTP Credential Theft (wired_ftp_theft.pcap)
 
-## 16.1 Filter paket Wireshark
-Buka file wireshark_ftp_theft.pcap lalu filter menggunakan plain text:
+**Soal:** Eiri meletakkan file malware di server. Dari file capture `wired_ftp_theft.pcap`, lakukan analisis lalu lintas FTP untuk mengidentifikasi alamat IP server FTP penyerang, banner software FTP yang digunakan, kredensial login penyerang, serta ukuran (size in bytes) dari file malware `knights_payload.exe` yang diunduh. Validasi temuan pada socket server:
+
+```
+nc [IP_Group] 3403
+```
+
+### 16.1 Filter Paket Wireshark
+
+Buka file `wired_ftp_theft.pcap` lalu filter menggunakan plain text:
 
 ```
 ftp || ftp-data
 ```
 
-<img width="1920" height="790" alt="image" src="https://github.com/user-attachments/assets/9be998b1-0430-405a-bcff-7a9b6a75c8cc" />
+<img width="1920" height="790" alt="Filter FTP theft Wireshark" src="https://github.com/user-attachments/assets/9be998b1-0430-405a-bcff-7a9b6a75c8cc" />
 
-## 16.2 Identifikasi poin-poin yang diminta
+### 16.2 Identifikasi Poin-Poin yang Diminta
 
-1. Identifikasi alamat IP server FTP Penyerang
-Kita bisa mengidentifikasinya dengan mencari paket yang berisi perintah login penyerang, seperti Request: USER <nama_user> dan Request: PASS <password>.
+**1. Alamat IP server FTP penyerang**
 
-<img width="1844" height="96" alt="image" src="https://github.com/user-attachments/assets/5f97e975-eadf-41ad-84c3-5560cb99154d" />
+Diidentifikasi dengan mencari paket yang berisi perintah login penyerang, yaitu `Request: USER <nama_user>` dan `Request: PASS <password>`.
 
-Dari screenshot tersebut kita bisa melihat IP dari penyerang di kolom source yaitu 10.3.7.50.
+<img width="1844" height="96" alt="Paket login FTP penyerang" src="https://github.com/user-attachments/assets/5f97e975-eadf-41ad-84c3-5560cb99154d" />
 
-2. Untuk melihat banner software yang digunakan kita bisa melihat text setelah kode 220:
+Dari screenshot tersebut, IP penyerang terlihat pada kolom *source*: **`10.3.7.50`**.
 
-<img width="1847" height="51" alt="image" src="https://github.com/user-attachments/assets/be3a4324-41cf-4c80-a89d-445c29b015f6" />
+**2. Banner software FTP**
 
-Dari situ kita bisa melihat versi banner software nya yaitu vsftpd 3.0.5
+Terlihat pada teks setelah kode respons `220`:
 
-3. Melihat kredensial login penyerang
+<img width="1847" height="51" alt="Banner FTP server" src="https://github.com/user-attachments/assets/be3a4324-41cf-4c80-a89d-445c29b015f6" />
+
+Banner software: **`vsftpd 3.0.5`**.
+
+**3. Kredensial login penyerang**
 
  <img width="1846" height="78" alt="image" src="https://github.com/user-attachments/assets/aa74048e-359e-462d-80a1-e7b763d116a8" />
 
-  Berdasarkan screenshot tersebut kita bisa mendapatkan kredensial login dari penyerang:
-  
-  -USER: knights_agent, PASS: N4V1_s3cur3_2026
+- **USER:** `knights_agent`
+- **PASS:** `N4V1_s3cur3_2026`
 
-  4. Ukuran bytes dari file malware knights_payload.exe
+**4. Ukuran file malware `knights_payload.exe`**
 
-<img width="1271" height="1079" alt="image" src="https://github.com/user-attachments/assets/98c2759e-0199-4a75-a54e-919abd42d48d" />
+<img width="1271" height="1079" alt="Ukuran file malware" src="https://github.com/user-attachments/assets/98c2759e-0199-4a75-a54e-919abd42d48d" />
 
-Dari kode 213 di screenshot tersebut kita bisa tahu ukuran bytes dari file malware knights_payload.exe itu 524288.
+Dari kode `213` pada screenshot, ukuran file adalah **524288 bytes**.
 
-flag=KOMJAR26{FTP_Th3ft_5wLhhesTC1TqPmupl8X1hMWW4};
+**Flag:** `KOMJAR26{FTP_Th3ft_5wLhhesTC1TqPmupl8X1hMWW4}`
 
-## 17. Alice membuat halaman web di node-nya. Eiri memanfaatkan celah untuk mengunduh payload berbahaya ke sistem Alice. Analisis file capture wired_http_c2.pcap untuk mengidentifikasi nama domain (Host) tempat malware diunduh, alamat IP server penyerang, nama file executable malware yang diunduh, serta kode status HTTP yang dikembalikan. Validasi temuan kalian pada socket server:
-(link file) nc [IP_Group] 3404
+---
 
-## 17.1 Membuka file wireshark & menerapkan display Filter
+## 17. Analisis HTTP C2 Payload Download (wired_http_c2.pcap)
+
+**Soal:** Alice membuat halaman web di node-nya. Eiri memanfaatkan celah untuk mengunduh payload berbahaya ke sistem Alice. Analisis file capture `wired_http_c2.pcap` untuk mengidentifikasi nama domain (Host) tempat malware diunduh, alamat IP server penyerang, nama file executable malware yang diunduh, serta kode status HTTP yang dikembalikan. Validasi temuan pada socket server:
+
+```
+nc [IP_Group] 3404
+```
+
+### 17.1 Membuka File Wireshark & Menerapkan Display Filter
 
 ```
 http.request.method == "GET" || http.response
 ```
 
-<img width="1920" height="444" alt="image" src="https://github.com/user-attachments/assets/8ac52cc4-5e13-43e0-bf36-0134a54851e8" />
+<img width="1920" height="444" alt="Filter HTTP GET/response" src="https://github.com/user-attachments/assets/8ac52cc4-5e13-43e0-bf36-0134a54851e8" />
 
-## 17.2 Mengidentifikasi Poin-Poin Jawaban
+### 17.2 Mengidentifikasi Poin-Poin Jawaban
 
-1. Mengidentifikasi nama Domain (Host) tempat malware diunduh
+**1. Domain (Host) tempat malware diunduh**
 
-   <img width="1538" height="881" alt="image" src="https://github.com/user-attachments/assets/dd612654-65e1-48d1-8a1f-9f99aca6d54f" />
+<img width="1538" height="881" alt="Host domain malware" src="https://github.com/user-attachments/assets/dd612654-65e1-48d1-8a1f-9f99aca6d54f" />
 
-Dari screenshot tersebut Domain (Host) tempat malware diunduh adalah: http://wired-update.net/navi_agent.exe.
+Domain (Host): **`http://wired-update.net/navi_agent.exe`**
 
-2. Alamat IP server penyerang
+**2. Alamat IP server penyerang**
 
-   <img width="1920" height="54" alt="image" src="https://github.com/user-attachments/assets/360de884-7646-4862-85cd-322efa29812e" />
+<img width="1920" height="54" alt="IP server penyerang" src="https://github.com/user-attachments/assets/360de884-7646-4862-85cd-322efa29812e" />
 
-Dari screenshot tersebut kita bisa melihat source dari penyerang yang mendownload file malware itu: 10.7.1.50.
+Terlihat pada kolom *source* dari paket yang mendownload file malware: **`10.7.1.50`**.
 
-3. Nama file executable yang diunduh.
-	Bisa kita lihat dari screenshotan yang tadi kalau nama file malware nya itu navi_agent.exe.
+**3. Nama file executable yang diunduh**
 
-4. Pengecekan lewat
+Berdasarkan screenshot sebelumnya, nama file malware adalah **`navi_agent.exe`**.
 
-   ```
-	nc 10.4.89.250 3404
-   ```
+**4. Pengecekan validasi**
 
-   <img width="1341" height="766" alt="image" src="https://github.com/user-attachments/assets/31ff8ca5-e84d-4c92-9c00-7407909fcaf5" />
+```
+nc 10.4.89.250 3404
+```
 
-	flag: KOMJAR26{Navi_C2_D0wnl04d_GIV088ToG8640DwGn76JQ7gog}
+<img width="1341" height="766" alt="Validasi socket server" src="https://github.com/user-attachments/assets/31ff8ca5-e84d-4c92-9c00-7407909fcaf5" />
 
-## 18. Eiri mengubah taktik penyerangan dengan menanamkan file malware menggunakan protokol file sharing SMB. Analisis file capture wired_smb_transfer.pcapng untuk mengidentifikasi nama protokol jaringan yang dieksploitasi, IP pengirim dan penerima, folder tujuan penyimpanan malware pada sistem korban, serta nama file executable malware yang ditransfer. Validasi temuan kalian pada socket server:
-(link file) nc [IP_Group] 3405
+**Flag:** `KOMJAR26{Navi_C2_D0wnl04d_GIV088ToG8640DwGn76JQ7gog}`
 
-## 18.1 Membuka file Wireshark dan menerapkan Display
+---
+
+## 18. Analisis SMB Malware Transfer (wired_smb_transfer.pcapng)
+
+**Soal:** Eiri mengubah taktik penyerangan dengan menanamkan file malware menggunakan protokol file sharing SMB. Analisis file capture `wired_smb_transfer.pcapng` untuk mengidentifikasi nama protokol jaringan yang dieksploitasi, IP pengirim dan penerima, folder tujuan penyimpanan malware pada sistem korban, serta nama file executable malware yang ditransfer. Validasi temuan pada socket server:
+
+```
+nc [IP_Group] 3405
+```
+
+### 18.1 Membuka File Wireshark & Menerapkan Display Filter
 
 ```
 smb || smb2
 ```
 
-<img width="1918" height="481" alt="image" src="https://github.com/user-attachments/assets/57dbb5b8-8161-4306-8793-25875d2a0881" />
+<img width="1918" height="481" alt="Filter SMB Wireshark" src="https://github.com/user-attachments/assets/57dbb5b8-8161-4306-8793-25875d2a0881" />
 
-## 18.2 Mengidentifikasi Poin-Poin dari Jawaban
+### 18.2 Mengidentifikasi Poin-Poin Jawaban
 
-1. Nama protokol jaringan yang dieksploitasi
-   
-Berdasarkan screenshot di tahap 18.1 kita bisa melihat bahwa nama protokol jaringan yang dieksploitasi itu SMB2 (Server Message Block Version 2)
+**1. Protokol jaringan yang dieksploitasi**
 
-2. IP Pengirim & IP Penerima
+Berdasarkan screenshot pada 18.1, protokol yang dieksploitasi adalah **SMB2 (Server Message Block Version 2)**.
 
-   <img width="1920" height="52" alt="image" src="https://github.com/user-attachments/assets/7bb43ada-b094-4d4c-bbf4-3b15b200872f" />
+**2. IP pengirim & IP penerima**
 
-	Berdasarkan paket request pembuatan/transfer file Create Request File, kita bisa melihat IP pengirim dari source dan IP Penerima dari destination yaitu:
+<img width="1920" height="52" alt="IP pengirim dan penerima SMB" src="https://github.com/user-attachments/assets/7bb43ada-b094-4d4c-bbf4-3b15b200872f" />
 
-	IP Pengirim: 10.7.3.100
-	IP Penerima: 10.7.1.50
+Berdasarkan paket *Create Request File*, IP pengirim (source) dan IP penerima (destination):
+- **IP Pengirim:** `10.7.3.100`
+- **IP Penerima:** `10.7.1.50`
 
-3. Folder tujuan & Nama File Executable Malware
+**3. Folder tujuan & nama file executable malware**
 
-   <img width="1538" height="887" alt="image" src="https://github.com/user-attachments/assets/2d881913-2585-463d-a43f-38a2370e5677" />
+<img width="1538" height="887" alt="Folder tujuan dan file malware SMB" src="https://github.com/user-attachments/assets/2d881913-2585-463d-a43f-38a2370e5677" />
 
-	Berdasarkan screenshot diatas folder tujuan dari file tersebut adalah: \\10.7.1.50\ADMIN$ yang merupakan folder default/tersembunyi di Windows yang biasanya mengarah ke folder C:\Windows. 
+- **Folder tujuan:** `\\10.7.1.50\ADMIN$` — folder default/tersembunyi pada Windows yang biasanya mengarah ke folder `C:\Windows`.
+- **Nama file executable malware:** `wired_trojan_payload.exe`
 
-Nama File Executable Malware: wired_trojan_payload.exe.
+**4. Pengujian**
 
-4. Pengujian
+<img width="1344" height="768" alt="Validasi socket server SMB" src="https://github.com/user-attachments/assets/589242af-2771-4611-b99e-b3c44e00e765" />
 
-   <img width="1344" height="768" alt="image" src="https://github.com/user-attachments/assets/589242af-2771-4611-b99e-b3c44e00e765" />
+**Flag:** `KOMJAR26{SMB_Tr4nsf3r_W1w5jGADRzrLoJjLQxtSYJGtg}`
 
-	flag: KOMJAR26{SMB_Tr4nsf3r_W1w5jGADRzrLoJjLQxtSYJGtg}
+---
 
-## 19. Eiri meneror jaringan dengan mengirimkan email pemerasan melalui protokol SMTP tanpa enkripsi. Analisis file capture wired_smtp_threat.pcap pada stream TCP terkait, identifikasi alamat email korban yang ditargetkan, password korban yang diklaim bocor oleh penyerang, jenis malware yang diinfeksikan, batas waktu (dalam hari) yang diberikan, serta MailClientID yang tercantum pada pesan. 
+## 19. Analisis SMTP Extortion Email (wired_smtp_threat.pcap)
 
-## 19.1 Melakukan Filter ke File Wireshark dan Follow TCP Stream.
+**Soal:** Eiri meneror jaringan dengan mengirimkan email pemerasan melalui protokol SMTP tanpa enkripsi. Analisis file capture `wired_smtp_threat.pcap` pada stream TCP terkait, identifikasi alamat email korban yang ditargetkan, password korban yang diklaim bocor oleh penyerang, jenis malware yang diinfeksikan, batas waktu (dalam hari) yang diberikan, serta MailClientID yang tercantum pada pesan.
+
+### 19.1 Filter File Wireshark & Follow TCP Stream
 
 ```
 smtp
 ```
-<img width="1920" height="788" alt="image" src="https://github.com/user-attachments/assets/8c1937aa-e821-4208-8f2e-896414317517" />
 
-Melakukan follow ke TCP Stream RCPT TO:<victim@protocol7.co.jp>.
+<img width="1920" height="788" alt="Filter SMTP Wireshark" src="https://github.com/user-attachments/assets/8c1937aa-e821-4208-8f2e-896414317517" />
 
-<img width="1282" height="1080" alt="image" src="https://github.com/user-attachments/assets/e2f81821-1688-45f8-b3e3-f797d36cd128" />
+Melakukan *follow* ke TCP Stream `RCPT TO:<victim@protocol7.co.jp>`.
 
+<img width="1282" height="1080" alt="TCP Stream SMTP" src="https://github.com/user-attachments/assets/e2f81821-1688-45f8-b3e3-f797d36cd128" />
 
-## 19.2 Identifikasi Poin-Poin Jawaban
+### 19.2 Mengidentifikasi Poin-Poin Jawaban
 
-1. Alamat Email Korban
-   Berdasarkan screenshot TCP Stream diatas alamat email korban adalah: victim@protocol7.co.jp;
-   
-2. Password Korban Bocor
+**1. Alamat email korban:** `victim@protocol7.co.jp`
 
-	<img width="1235" height="861" alt="image" src="https://github.com/user-attachments/assets/365e2296-ab54-4d60-8129-d675eb41b396" />
+**2. Password korban yang bocor**
 
-	Berdasarkan pesan yang dikirim oleh attacker, password korban yang bocor adalah pr0tocol_7_user.
+<img width="1235" height="861" alt="Pesan pemerasan SMTP" src="https://github.com/user-attachments/assets/365e2296-ab54-4d60-8129-d675eb41b396" />
 
-3. Jenis Malware
+Berdasarkan pesan attacker, password korban yang bocor adalah `pr0tocol_7_user`.
 
-   Dari pesan yang diberikan oleh attacker kita juga bisa mengetahui malware yang digunakan untuk menyerang korban yaitu: Private Ransomware
+**3. Jenis malware:** Private Ransomware
 
-4. Batas waktu yang diberikan
+**4. Batas waktu yang diberikan:** 72 hours (3 days)
 
-   Berdasarkan pesan yang diberikan oleh attacker, batas waktu yang diberikan adalah: 72 hours (3 days)
+**5. MailClientID:** `7719980706`
 
-5. MailClientID
+### 19.3 Pengujian
 
-   Dari pesan attacker MailClientID nya adalah: 7719980706
+<img width="1345" height="771" alt="Validasi socket server SMTP" src="https://github.com/user-attachments/assets/f1c3df06-83aa-44fc-8038-24a5123d2018" />
 
-## 19.3 Pengujian 
+**Flag:** `KOMJAR26{SMTP_Ext0rt10n_IvT7tpjjObB04a0DJB8FEzv2S}`
 
-<img width="1345" height="771" alt="image" src="https://github.com/user-attachments/assets/f1c3df06-83aa-44fc-8038-24a5123d2018" />
+---
 
-flag: KOMJAR26{SMTP_Ext0rt10n_IvT7tpjjObB04a0DJB8FEzv2S}
+## 20. Analisis TLS Decryption (wired_tls_decrypt.pcapng)
 
-## 20. Untuk rencana pamungkasnya, Eiri menyembunyikan komunikasi malware di balik saluran terenkripsi TLS. Namun Alice telah menyediakan file keylog untuk mendekripsi lalu lintas data tersebut. Analisis file capture wired_tls_decrypt.pcapng bersama keyslogfile.txt untuk mengidentifikasi versi protokol TLS yang dinegosiasikan, nama domain (SNI) yang diakses, alamat IP server HTTPS penyerang, User-Agent yang digunakan, serta HTTP request method dan path yang tersembunyi di dalam sesi dekripsi.
+**Soal:** Untuk rencana pamungkasnya, Eiri menyembunyikan komunikasi malware di balik saluran terenkripsi TLS. Namun Alice telah menyediakan file keylog untuk mendekripsi lalu lintas data tersebut. Analisis file capture `wired_tls_decrypt.pcapng` bersama `keyslogfile.txt` untuk mengidentifikasi versi protokol TLS yang dinegosiasikan, nama domain (SNI) yang diakses, alamat IP server HTTPS penyerang, User-Agent yang digunakan, serta HTTP request method dan path yang tersembunyi di dalam sesi dekripsi.
 
-## 20.1 Memuat SSL Keylog File di Wireshark
+### 20.1 Memuat SSL Keylog File di Wireshark
 
-Langkah-langkah nya adalah sebagai berikut:
-1. Membuka file wired_tls_decrypt.pcapng di Wireshark
-2. Masuk ke menu Edit -> Preferences.
-3. Di panel sebelah kiri, buka Protocols -> scroll dan pilih TLS (atau SSL pada Wireshark versi lama).
-4. Cari kolom (Pre)-Master-Secret log filename.
-5. Klik tombol Browse..., lalu pilih file keyslogfile.txt.
-6. Klik OK.
+1. Membuka file `wired_tls_decrypt.pcapng` di Wireshark.
+2. Masuk ke menu **Edit → Preferences**.
+3. Di panel sebelah kiri, buka **Protocols → TLS** (atau SSL pada Wireshark versi lama).
+4. Cari kolom **(Pre)-Master-Secret log filename**.
+5. Klik tombol **Browse...**, lalu pilih file `keyslogfile.txt`.
+6. Klik **OK**.
 
-## 20.2 Mengidentifikasi Poin-Poin Jawaban.
+### 20.2 Mengidentifikasi Poin-Poin Jawaban
 
- 1. Versi Protocol TLS yang Dinegosiasikan.
-    Filter wireshark menggunakan tls.handshake.type == 2 lalu klik paket Server Hello.
-	
-	<img width="1534" height="887" alt="image" src="https://github.com/user-attachments/assets/9779d2bd-57a3-4798-8f52-6fdd16361fe0" />
-	Berdasarkan screenshot diatas versi dari TLS tersebut adalah: TLS 1.2
+**1. Versi protokol TLS yang dinegosiasikan**
 
-2. Nama Domain (SNI) yang Diakses
-   Ketik filter menjadi tls.handshake.extensions_server_name.
+Filter Wireshark: `tls.handshake.type == 2`, lalu klik paket *Server Hello*.
 
-   Klik paket Client Hello.
+<img width="1534" height="887" alt="Server Hello TLS" src="https://github.com/user-attachments/assets/9779d2bd-57a3-4798-8f52-6fdd16361fe0" />
 
-   <img width="1541" height="883" alt="image" src="https://github.com/user-attachments/assets/3cc09dac-76aa-4323-a19c-8849d8c5b46e" />
+Versi TLS: **TLS 1.2**
 
-	Berdasarkan screenshot tersebur Nama Domain (SNI) yang diakses adalah: example.com
+**2. Nama domain (SNI) yang diakses**
 
-3. Alamat IP Server HTTPS Penyerang
+Filter Wireshark: `tls.handshake.extensions_server_name`, lalu klik paket *Client Hello*.
 
-   <img width="1918" height="106" alt="image" src="https://github.com/user-attachments/assets/09059e6b-355e-4874-a049-2b2cd539cfb3" />
+<img width="1541" height="883" alt="SNI Client Hello" src="https://github.com/user-attachments/assets/3cc09dac-76aa-4323-a19c-8849d8c5b46e" />
 
-	Berdasarkan destination dari paket Client Hello tersebut IP Server HTTPS Penyerang adalah: 93.184.216.34.
+Domain (SNI): **`example.com`**
 
- 4. User-Agent, HTTP Request Method, dan Path
-    - Filter wireshark dengan "http"
-	<img width="1920" height="135" alt="image" src="https://github.com/user-attachments/assets/8059a31f-22c5-40ba-bd7d-ecb4ad541cce" />
-	<img width="1538" height="885" alt="image" src="https://github.com/user-attachments/assets/a88ddf66-44a2-468e-a628-5f7f29a90878" />
+**3. Alamat IP server HTTPS penyerang**
 
-	Berdasarkan foto screenshot tersebut:
+<img width="1918" height="106" alt="IP destination Client Hello" src="https://github.com/user-attachments/assets/09059e6b-355e-4874-a049-2b2cd539cfb3" />
 
-    User-Agent adalah: curl/7.62.0\r\n
-    Http Request Method nya adalah: HEAD
-    HTTP Path nya adalah: / atau full requestnya adalah https://example.com/
+Berdasarkan *destination* dari paket *Client Hello*, IP server HTTPS penyerang: **`93.184.216.34`**
 
-## 20.3 Pengujian 
+**4. User-Agent, HTTP request method, dan path**
 
-<img width="455" height="341" alt="image" src="https://github.com/user-attachments/assets/90f0144e-3318-473d-9aeb-f1d724ea3702" />
+Filter Wireshark: `http`
 
-flag: KOMJAR26{TLS_D3crypt_7QBYpo1QhCGxlBA5nZtB5ghYb}
-   
+<img width="1920" height="135" alt="Filter HTTP hasil dekripsi" src="https://github.com/user-attachments/assets/8059a31f-22c5-40ba-bd7d-ecb4ad541cce" />
+
+<img width="1538" height="885" alt="Detail HTTP request hasil dekripsi" src="https://github.com/user-attachments/assets/a88ddf66-44a2-468e-a628-5f7f29a90878" />
+
+- **User-Agent:** `curl/7.62.0`
+- **HTTP Request Method:** `HEAD`
+- **HTTP Path:** `/` (request lengkap: `https://example.com/`)
+
+### 20.3 Pengujian
+
+<img width="455" height="341" alt="Validasi socket server TLS" src="https://github.com/user-attachments/assets/90f0144e-3318-473d-9aeb-f1d724ea3702" />
+
+**Flag:** `KOMJAR26{TLS_D3crypt_7QBYpo1QhCGxlBA5nZtB5ghYb}`
+
+---
+
 ## Kesimpulan
 
-Melalui rangkaian konfigurasi di atas, topologi "The Wired" berhasil dibangun dengan Router Lain sebagai gateway utama yang menghubungkan lima entitas melalui tiga switch, terkoneksi ke internet publik melalui NAT/DHCP, memiliki DNS resolver mandiri, konfigurasi persisten pasca-reboot, kemampuan monitoring traffic via Wireshark, layanan FTP Server dengan kebijakan akses berjenjang (read-write, read-only, dan blacklist), serta terbukti memiliki latensi jaringan yang stabil dengan packet loss 0% pada uji ketahanan koneksi antar node.
+Melalui rangkaian konfigurasi di atas, topologi "The Wired" berhasil dibangun dengan Router Lain sebagai gateway utama yang menghubungkan lima entitas melalui tiga switch, terkoneksi ke internet publik melalui NAT/DHCP, memiliki DNS resolver mandiri, konfigurasi persisten pasca-reboot, kemampuan monitoring traffic via Wireshark, layanan FTP Server dengan kebijakan akses berjenjang (read-write, read-only, dan blacklist), serta terbukti memiliki latensi jaringan yang stabil dengan packet loss 0% pada uji ketahanan koneksi antar node. Analisis forensik jaringan lanjutan (FTP, HTTP, SMB, SMTP, dan TLS) juga berhasil mengungkap seluruh jejak serangan Eiri beserta flag terkait pada tiap skenario.
