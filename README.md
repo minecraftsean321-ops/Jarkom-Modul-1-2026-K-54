@@ -413,6 +413,56 @@ Nama File Executable Malware: wired_trojan_payload.exe.
    <img width="1344" height="768" alt="image" src="https://github.com/user-attachments/assets/589242af-2771-4611-b99e-b3c44e00e765" />
 
 	flag: KOMJAR26{SMB_Tr4nsf3r_W1w5jGADRzrLoJjLQxtSYJGtg}
+
+## 19. Eiri meneror jaringan dengan mengirimkan email pemerasan melalui protokol SMTP tanpa enkripsi. Analisis file capture wired_smtp_threat.pcap pada stream TCP terkait, identifikasi alamat email korban yang ditargetkan, password korban yang diklaim bocor oleh penyerang, jenis malware yang diinfeksikan, batas waktu (dalam hari) yang diberikan, serta MailClientID yang tercantum pada pesan. 
+
+## 19.1 Melakukan Filter ke File Wireshark dan Follow TCP Stream.
+
+```
+smtp
+```
+<img width="1920" height="788" alt="image" src="https://github.com/user-attachments/assets/8c1937aa-e821-4208-8f2e-896414317517" />
+
+Melakukan follow ke TCP Stream RCPT TO:<victim@protocol7.co.jp>.
+
+<img width="1282" height="1080" alt="image" src="https://github.com/user-attachments/assets/e2f81821-1688-45f8-b3e3-f797d36cd128" />
+
+
+## 19.2 Identifikasi Poin-Poin Jawaban
+
+1. Alamat Email Korban
+   Berdasarkan screenshot TCP Stream diatas alamat email korban adalah: victim@protocol7.co.jp;
+   
+2. Password Korban Bocor
+
+	<img width="1235" height="861" alt="image" src="https://github.com/user-attachments/assets/365e2296-ab54-4d60-8129-d675eb41b396" />
+
+	Berdasarkan pesan yang dikirim oleh attacker, password korban yang bocor adalah pr0tocol_7_user.
+
+3. Jenis Malware
+
+   Dari pesan yang diberikan oleh attacker kita juga bisa mengetahui malware yang digunakan untuk menyerang korban yaitu: Private Ransomware
+
+4. Batas waktu yang diberikan
+
+   Berdasarkan pesan yang diberikan oleh attacker, batas waktu yang diberikan adalah: 72 hours (3 days)
+
+5. MailClientID
+
+   Dari pesan attacker MailClientID nya adalah: 7719980706
+
+## 19.3 Pengujian 
+
+<img width="1345" height="771" alt="image" src="https://github.com/user-attachments/assets/f1c3df06-83aa-44fc-8038-24a5123d2018" />
+
+flag: KOMJAR26{SMTP_Ext0rt10n_IvT7tpjjObB04a0DJB8FEzv2S}
+
+## 20. 
+
+
+
+   
+
    
 ## Kesimpulan
 
