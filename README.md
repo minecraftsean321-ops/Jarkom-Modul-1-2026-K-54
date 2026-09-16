@@ -298,6 +298,18 @@ icmp
 - **Performa & RTT:** latensi balasan paket pertama tercatat **0.616 ms**, dengan tingkat **packet loss 0%**.
 - **Kesimpulan:** koneksi antara segmen Knights dan Chisa berjalan **sangat stabil**, tanpa ada paket yang hilang selama 77 kali pengiriman dengan interval 0.3 detik.
 
+## 11. Test kelemahan protokol telnet
+
+### Konfigurasi Server Telnet di Node Chisa
+<img width="519" height="73" alt="Screenshot 2026-09-16 at 17 37 31" src="https://github.com/user-attachments/assets/44cb001b-6c4e-49a1-96d5-9fb23fd03e25" />
+
+### Melakukan Capture Wireshark & Login dari Node Eiri
+<img width="727" height="633" alt="Screenshot 2026-09-16 at 22 34 31" src="https://github.com/user-attachments/assets/ba125d52-b108-45ef-93fe-0309e31ffe0d" />
+<img width="1048" height="789" alt="Screenshot 2026-09-16 at 22 37 06" src="https://github.com/user-attachments/assets/2fed6571-a38f-4882-b7d6-cd18e61ceb57" />
+
+
+
+
 ---
 
 ## 16. Analisis FTP Credential Theft (wired_ftp_theft.pcap)
