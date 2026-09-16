@@ -353,11 +353,26 @@ http.request.method == "GET" || http.response
 
    <img width="1538" height="881" alt="image" src="https://github.com/user-attachments/assets/dd612654-65e1-48d1-8a1f-9f99aca6d54f" />
 
-Dari screenshot tersebut Domain (Host) tempat malware diunduh adalah: http://wired-update.net/navi_agent.exe
+Dari screenshot tersebut Domain (Host) tempat malware diunduh adalah: http://wired-update.net/navi_agent.exe.
 
+2. Alamat IP server penyerang
 
+   <img width="1920" height="54" alt="image" src="https://github.com/user-attachments/assets/360de884-7646-4862-85cd-322efa29812e" />
 
+Dari screenshot tersebut kita bisa melihat destination dari penyerang yang mendownload file malware itu: 203.0.113.42.
 
+3. Nama file executable yang diunduh.
+	Bisa kita lihat dari screenshotan yang tadi kalau nama file malware nya itu navi_agent.exe.
+
+4. Pengecekan lewat
+
+   ```
+	nc 10.4.89.250 3404
+   ```
+
+   <img width="1341" height="766" alt="image" src="https://github.com/user-attachments/assets/31ff8ca5-e84d-4c92-9c00-7407909fcaf5" />
+
+	flag: KOMJAR26{Navi_C2_D0wnl04d_GIV088ToG8640DwGn76JQ7gog}
 
 ## Kesimpulan
 
