@@ -311,6 +311,7 @@ icmp
 
 Protokol Telnet beroperasi menggunakan mode interaktif (character-at-a-time / NVT). Setiap kali pengguna menekan satu tombol pada keyboard di sisi klien (Eiri), klien Telnet langsung membungkus 1 byte karakter tersebut ke dalam satu segmen/paket TCP tersendiri untuk dikirimkan secara langsung ke server (Chisa), agar server bisa langsung memproses dan menampilkan balasannya (echo) ke layar klien. Hal inilah yang menyebabkan setiap huruf dari username dan password terkirim dalam paket TCP individual yang terpisah, sehingga sangat rentan terhadap penyadapan (sniffing).
 
+---
 
 ## 12. Pemindaian Port (Port Scanning) dengan Netcat (nc)
 
@@ -328,6 +329,31 @@ Saat Alice mengirimkan paket pembuka [SYN], node Knights membalasnya dengan TCP 
 Port Tertutup (Port 7777):
 Saat Alice mengirimkan paket [SYN], node Knights membalasnya dengan TCP Flag [RST, ACK] (Reset). Flag RST dikirimkan secara otomatis oleh sistem operasi Knights karena tidak ada daemon/layanan yang mendengarkan (listening) di port 7777, sehingga permintaan koneksi langsung ditolak.
 
+---
+## 13. Konfigurasi Autentikasi SSH Berbasis Kunci (Key-Based Authentication), Pengujian Koneksi & Analisis Lalu Lintas di Wireshark, Analisis Keamanan Data (SSH vs Telnet)
+
+### Langkah 1: Setup SSH Server di Node Knights
+<img width="735" height="378" alt="Screenshot 2026-09-16 at 23 57 47" src="https://github.com/user-attachments/assets/e370dbc4-e738-470f-93e0-06167bd9c490" />
+
+### Langkah 2: Generate Keypair di Node Mika & Pasang Public Key
+<img width="738" height="491" alt="Screenshot 2026-09-16 at 23 58 30" src="https://github.com/user-attachments/assets/7257cae6-c3dd-4794-a691-146ab334b791" />
+<img width="738" height="189" alt="Screenshot 2026-09-16 at 23 58 54" src="https://github.com/user-attachments/assets/92962bdb-a0a7-4d5b-8da3-f3b46f5f5a06" />
+
+### Langkah 3: Start Wireshark & Pengujian Login SSH
+<img width="732" height="97" alt="Screenshot 2026-09-16 at 23 59 07" src="https://github.com/user-attachments/assets/f6ee3dcd-04e1-4d08-8e07-4fe2ff3ea673" />
+<img width="739" height="533" alt="Screenshot 2026-09-16 at 23 59 45" src="https://github.com/user-attachments/assets/87822cea-c8fb-46a0-be2b-c414d9932a23" />
+<img width="1038" height="393" alt="Screenshot 2026-09-17 at 00 03 33" src="https://github.com/user-attachments/assets/32b091d0-b293-478b-9f33-bd0ae430538f" />
+
+## Mengapa kredensial tidak terlihat dalam bentuk teks terbuka seperti Telnet?
+- Proses Key Exchange (KEX): Sebelum autentikasi dimulai, SSH melakukan pertukaran kunci menggunakan algoritma kriptografi (seperti Diffie-Hellman). Proses ini menghasilkan session key simetris yang menyandikan seluruh saluran komunikasi.
+
+- Tanpa Pengiriman Password: Pada autentikasi berbasis kunci (Public Key Authentication), password tidak pernah dikirimkan ke jaringan. Klien hanya membuktikan kepemilikan private key dengan mengirimkan tanda tangan digital (digital signature).
+
+- Kerahasiaan Data (Confidentiality): Karena seluruh payload diacak setelah proses KEX selesai, penyadap di Wireshark hanya dapat melihat paket berlabel Encrypted packet tanpa bisa membaca isi perintah maupun kredensialnya.
+
+---
+
+14.
 
 ---
 
