@@ -4,21 +4,21 @@ Laporan praktikum pembangunan topologi jaringan **"The Wired"** menggunakan GNS3
 
 ## Daftar Isi
 
-1. [Membangun Topologi Jaringan](#1-membangun-topologi-jaringan)
-2. [Konfigurasi Internet Gateway (NAT/DHCP) pada Router Lain](#2-konfigurasi-internet-gateway-natdhcp-pada-router-lain)
-3. [Konfigurasi Routing Antar Subnet](#3-konfigurasi-routing-antar-subnet)
-4. [NAT Masquerade & DNS Resolver untuk Setiap Client](#4-nat-masquerade--dns-resolver-untuk-setiap-client)
-5. [Persistensi Konfigurasi & Script Verifikasi](#5-persistensi-konfigurasi--script-verifikasi)
-6. [Analisis Traffic dengan Wireshark di Node Mika](#6-analisis-traffic-dengan-wireshark-di-node-mika)
-7. [FTP Server di Node Chisa dengan Kebijakan Akses](#7-ftp-server-di-node-chisa-dengan-kebijakan-akses)
-8. [Upload File FTP dari Knights ke Chisa](#8-upload-file-ftp-dari-knights-ke-chisa)
-9. [Pembatasan Read-Only Akun Mika di FTP Server](#9-pembatasan-read-only-akun-mika-di-ftp-server)
-10. [Uji Ketahanan Koneksi (Ping Stress Test)](#10-uji-ketahanan-koneksi-ping-stress-test)
-16. [Analisis FTP Credential Theft (wired_ftp_theft.pcap)](#16-analisis-ftp-credential-theft-wired_ftp_theftpcap)
-17. [Analisis HTTP C2 Payload Download (wired_http_c2.pcap)](#17-analisis-http-c2-payload-download-wired_http_c2pcap)
-18. [Analisis SMB Malware Transfer (wired_smb_transfer.pcapng)](#18-analisis-smb-malware-transfer-wired_smb_transferpcapng)
-19. [Analisis SMTP Extortion Email (wired_smtp_threat.pcap)](#19-analisis-smtp-extortion-email-wired_smtp_threatpcap)
-20. [Analisis TLS Decryption (wired_tls_decrypt.pcapng)](#20-analisis-tls-decryption-wired_tls_decryptpcapng)
+*  [1. Membangun Topologi Jaringan](#1-membangun-topologi-jaringan)
+*  [2. Konfigurasi Internet Gateway (NAT/DHCP) pada Router Lain](#2-konfigurasi-internet-gateway-natdhcp-pada-router-lain)
+*  [3. Konfigurasi Routing Antar Subnet](#3-konfigurasi-routing-antar-subnet)
+*  [4. NAT Masquerade & DNS Resolver untuk Setiap Client](#4-nat-masquerade--dns-resolver-untuk-setiap-client)
+*  [5. Persistensi Konfigurasi & Script Verifikasi](#5-persistensi-konfigurasi--script-verifikasi)
+*  [6. Analisis Traffic dengan Wireshark di Node Mika](#6-analisis-traffic-dengan-wireshark-di-node-mika)
+*  [7. FTP Server di Node Chisa dengan Kebijakan Akses](#7-ftp-server-di-node-chisa-dengan-kebijakan-akses)
+*  [8. Upload File FTP dari Knights ke Chisa](#8-upload-file-ftp-dari-knights-ke-chisa)
+*  [9. Pembatasan Read-Only Akun Mika di FTP Server](#9-pembatasan-read-only-akun-mika-di-ftp-server)
+*  [10. Uji Ketahanan Koneksi (Ping Stress Test)](#10-uji-ketahanan-koneksi-ping-stress-test)
+*  [16. Analisis FTP Credential Theft (wired_ftp_theft.pcap)](#16-analisis-ftp-credential-theft-wired_ftp_theftpcap)
+*  [17. Analisis HTTP C2 Payload Download (wired_http_c2.pcap)](#17-analisis-http-c2-payload-download-wired_http_c2pcap)
+*  [18. Analisis SMB Malware Transfer (wired_smb_transfer.pcapng)](#18-analisis-smb-malware-transfer-wired_smb_transferpcapng)
+*  [19. Analisis SMTP Extortion Email (wired_smtp_threat.pcap)](#19-analisis-smtp-extortion-email-wired_smtp_threatpcap)
+*  [20. Analisis TLS Decryption (wired_tls_decrypt.pcapng)](#20-analisis-tls-decryption-wired_tls_decryptpcapng)
 
 > **Catatan:** Penomoran bagian 16–20 mengikuti nomor soal pada modul praktikum asli (soal 11–15 tidak termasuk dalam cakupan kelompok ini).
 
