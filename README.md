@@ -359,7 +359,7 @@ Dari screenshot tersebut Domain (Host) tempat malware diunduh adalah: http://wir
 
    <img width="1920" height="54" alt="image" src="https://github.com/user-attachments/assets/360de884-7646-4862-85cd-322efa29812e" />
 
-Dari screenshot tersebut kita bisa melihat destination dari penyerang yang mendownload file malware itu: 203.0.113.42.
+Dari screenshot tersebut kita bisa melihat source dari penyerang yang mendownload file malware itu: 10.7.1.50.
 
 3. Nama file executable yang diunduh.
 	Bisa kita lihat dari screenshotan yang tadi kalau nama file malware nya itu navi_agent.exe.
