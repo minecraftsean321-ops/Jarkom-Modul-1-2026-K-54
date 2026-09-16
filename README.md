@@ -457,12 +457,57 @@ Melakukan follow ke TCP Stream RCPT TO:<victim@protocol7.co.jp>.
 
 flag: KOMJAR26{SMTP_Ext0rt10n_IvT7tpjjObB04a0DJB8FEzv2S}
 
-## 20. 
+## 20. Untuk rencana pamungkasnya, Eiri menyembunyikan komunikasi malware di balik saluran terenkripsi TLS. Namun Alice telah menyediakan file keylog untuk mendekripsi lalu lintas data tersebut. Analisis file capture wired_tls_decrypt.pcapng bersama keyslogfile.txt untuk mengidentifikasi versi protokol TLS yang dinegosiasikan, nama domain (SNI) yang diakses, alamat IP server HTTPS penyerang, User-Agent yang digunakan, serta HTTP request method dan path yang tersembunyi di dalam sesi dekripsi.
 
+## 20.1 Memuat SSL Keylog File di Wireshark
 
+Langkah-langkah nya adalah sebagai berikut:
+1. Membuka file wired_tls_decrypt.pcapng di Wireshark
+2. Masuk ke menu Edit -> Preferences.
+3. Di panel sebelah kiri, buka Protocols -> scroll dan pilih TLS (atau SSL pada Wireshark versi lama).
+4. Cari kolom (Pre)-Master-Secret log filename.
+5. Klik tombol Browse..., lalu pilih file keyslogfile.txt.
+6. Klik OK.
 
-   
+## 20.2 Mengidentifikasi Poin-Poin Jawaban.
 
+ 1. Versi Protocol TLS yang Dinegosiasikan.
+    Filter wireshark menggunakan tls.handshake.type == 2 lalu klik paket Server Hello.
+	
+	<img width="1534" height="887" alt="image" src="https://github.com/user-attachments/assets/9779d2bd-57a3-4798-8f52-6fdd16361fe0" />
+	Berdasarkan screenshot diatas versi dari TLS tersebut adalah: TLS 1.2
+
+2. Nama Domain (SNI) yang Diakses
+   Ketik filter menjadi tls.handshake.extensions_server_name.
+
+   Klik paket Client Hello.
+
+   <img width="1541" height="883" alt="image" src="https://github.com/user-attachments/assets/3cc09dac-76aa-4323-a19c-8849d8c5b46e" />
+
+	Berdasarkan screenshot tersebur Nama Domain (SNI) yang diakses adalah: example.com
+
+3. Alamat IP Server HTTPS Penyerang
+
+   <img width="1918" height="106" alt="image" src="https://github.com/user-attachments/assets/09059e6b-355e-4874-a049-2b2cd539cfb3" />
+
+	Berdasarkan destination dari paket Client Hello tersebut IP Server HTTPS Penyerang adalah: 93.184.216.34.
+
+ 4. User-Agent, HTTP Request Method, dan Path
+    - Filter wireshark dengan "http"
+	<img width="1920" height="135" alt="image" src="https://github.com/user-attachments/assets/8059a31f-22c5-40ba-bd7d-ecb4ad541cce" />
+	<img width="1538" height="885" alt="image" src="https://github.com/user-attachments/assets/a88ddf66-44a2-468e-a628-5f7f29a90878" />
+
+	Berdasarkan foto screenshot tersebut:
+
+    User-Agent adalah: curl/7.62.0\r\n
+    Http Request Method nya adalah: HEAD
+    HTTP Path nya adalah: / atau full requestnya adalah https://example.com/
+
+## 20.3 Pengujian 
+
+<img width="455" height="341" alt="image" src="https://github.com/user-attachments/assets/90f0144e-3318-473d-9aeb-f1d724ea3702" />
+
+flag: KOMJAR26{TLS_D3crypt_7QBYpo1QhCGxlBA5nZtB5ghYb}
    
 ## Kesimpulan
 
