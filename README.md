@@ -336,6 +336,21 @@ Dari kode 213 di screenshot tersebut kita bisa tahu ukuran bytes dari file malwa
 
 flag=KOMJAR26{FTP_Th3ft_5wLhhesTC1TqPmupl8X1hMWW4};
 
+## 17. Alice membuat halaman web di node-nya. Eiri memanfaatkan celah untuk mengunduh payload berbahaya ke sistem Alice. Analisis file capture wired_http_c2.pcap untuk mengidentifikasi nama domain (Host) tempat malware diunduh, alamat IP server penyerang, nama file executable malware yang diunduh, serta kode status HTTP yang dikembalikan. Validasi temuan kalian pada socket server:
+(link file) nc [IP_Group] 3404
+
+## 17.1 Membuka file wireshark & menerapkan display Filter
+
+```
+http.request.method == "GET" || http.response
+```
+
+<img width="1920" height="444" alt="image" src="https://github.com/user-attachments/assets/8ac52cc4-5e13-43e0-bf36-0134a54851e8" />
+
+## 17.2 Mengidentifikasi Poin-Poin Jawaban
+
+
+
 
 
 
