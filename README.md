@@ -349,6 +349,11 @@ http.request.method == "GET" || http.response
 
 ## 17.2 Mengidentifikasi Poin-Poin Jawaban
 
+1. Mengidentifikasi nama Domain (Host) tempat malware diunduh
+
+   <img width="1538" height="881" alt="image" src="https://github.com/user-attachments/assets/dd612654-65e1-48d1-8a1f-9f99aca6d54f" />
+
+Dari screenshot tersebut Domain (Host) tempat malware diunduh adalah: http://wired-update.net/navi_agent.exe
 
 
 
