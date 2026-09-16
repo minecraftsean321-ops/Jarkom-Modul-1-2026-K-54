@@ -307,7 +307,26 @@ icmp
 <img width="727" height="633" alt="Screenshot 2026-09-16 at 22 34 31" src="https://github.com/user-attachments/assets/ba125d52-b108-45ef-93fe-0309e31ffe0d" />
 <img width="1048" height="789" alt="Screenshot 2026-09-16 at 22 37 06" src="https://github.com/user-attachments/assets/2fed6571-a38f-4882-b7d6-cd18e61ceb57" />
 
+### Mengapa setiap karakter terkirim dalam paket TCP terpisah?
 
+Protokol Telnet beroperasi menggunakan mode interaktif (character-at-a-time / NVT). Setiap kali pengguna menekan satu tombol pada keyboard di sisi klien (Eiri), klien Telnet langsung membungkus 1 byte karakter tersebut ke dalam satu segmen/paket TCP tersendiri untuk dikirimkan secara langsung ke server (Chisa), agar server bisa langsung memproses dan menampilkan balasannya (echo) ke layar klien. Hal inilah yang menyebabkan setiap huruf dari username dan password terkirim dalam paket TCP individual yang terpisah, sehingga sangat rentan terhadap penyadapan (sniffing).
+
+
+## 12. Pemindaian Port (Port Scanning) dengan Netcat (nc)
+
+### Setup Service di Node Knights (Target)
+<img width="749" height="550" alt="Screenshot 2026-09-16 at 22 49 20" src="https://github.com/user-attachments/assets/bb0916de-6d80-4ff1-92cd-204213658932" />
+### Start Wireshark & Pemindaian dari Node Alice
+<img width="739" height="535" alt="Screenshot 2026-09-16 at 22 57 48" src="https://github.com/user-attachments/assets/92d1a0e2-c691-45ae-8717-a808a1740eff" />
+<img width="974" height="790" alt="Screenshot 2026-09-16 at 22 57 36" src="https://github.com/user-attachments/assets/4922be99-31aa-48cd-9cd1-421d61358d35" />
+
+### Analisis Perbedaan TCP Flag (Port Terbuka vs Port Tertutup):
+
+Port Terbuka (Port 22 & 80):
+Saat Alice mengirimkan paket pembuka [SYN], node Knights membalasnya dengan TCP Flag [SYN, ACK]. Hal ini menandakan bahwa port tersebut aktif, memiliki layanan (service listener) yang siap melayani koneksi, dan melanjutkan ke proses TCP 3-Way Handshake.
+
+Port Tertutup (Port 7777):
+Saat Alice mengirimkan paket [SYN], node Knights membalasnya dengan TCP Flag [RST, ACK] (Reset). Flag RST dikirimkan secara otomatis oleh sistem operasi Knights karena tidak ada daemon/layanan yang mendengarkan (listening) di port 7777, sehingga permintaan koneksi langsung ditolak.
 
 
 ---
