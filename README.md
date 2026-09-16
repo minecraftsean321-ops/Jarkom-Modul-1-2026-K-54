@@ -310,9 +310,9 @@ ftp || ftp-data
 1. Identifikasi alamat IP server FTP Penyerang
 Kita bisa mengidentifikasinya dengan mencari paket yang berisi perintah login penyerang, seperti Request: USER <nama_user> dan Request: PASS <password>.
 
-<img width="1851" height="76" alt="image" src="https://github.com/user-attachments/assets/62e3c36f-81ef-4811-bbe9-1c6972451152" />
+<img width="1844" height="96" alt="image" src="https://github.com/user-attachments/assets/5f97e975-eadf-41ad-84c3-5560cb99154d" />
 
-Dari screenshot tersebut kita bisa melihat IP dari penyerang di kolom source yaitu 10.3.7.20.
+Dari screenshot tersebut kita bisa melihat IP dari penyerang di kolom source yaitu 10.3.7.50.
 
 2. Untuk melihat banner software yang digunakan kita bisa melihat text setelah kode 220:
 
@@ -322,16 +322,10 @@ Dari situ kita bisa melihat versi banner software nya yaitu vsftpd 3.0.5
 
 3. Melihat kredensial login penyerang
 
-<img width="1854" height="77" alt="image" src="https://github.com/user-attachments/assets/8ec86748-d097-44da-886d-c7127a32eb22" />
-
-<img width="1850" height="124" alt="image" src="https://github.com/user-attachments/assets/05f69d60-4364-420b-9164-8678d69a9bb7" />
-
  <img width="1846" height="78" alt="image" src="https://github.com/user-attachments/assets/aa74048e-359e-462d-80a1-e7b763d116a8" />
 
-  Berdasarkan ketiga screenshot tersebut kita bisa mendapatkan 3 kredensial login dari penyerang:
-
-  -USER: alice, PASS: alicepass2026
-  -USER: mika, PASS: mikapass2026
+  Berdasarkan screenshot tersebut kita bisa mendapatkan kredensial login dari penyerang:
+  
   -USER: knights_agent, PASS: N4V1_s3cur3_2026
 
   4. Ukuran bytes dari file malware knights_payload.exe
@@ -339,6 +333,8 @@ Dari situ kita bisa melihat versi banner software nya yaitu vsftpd 3.0.5
 <img width="1271" height="1079" alt="image" src="https://github.com/user-attachments/assets/98c2759e-0199-4a75-a54e-919abd42d48d" />
 
 Dari kode 213 di screenshot tersebut kita bisa tahu ukuran bytes dari file malware knights_payload.exe itu 524288.
+
+flag=KOMJAR26{FTP_Th3ft_5wLhhesTC1TqPmupl8X1hMWW4};
 
 
 
