@@ -374,6 +374,46 @@ Dari screenshot tersebut kita bisa melihat source dari penyerang yang mendownloa
 
 	flag: KOMJAR26{Navi_C2_D0wnl04d_GIV088ToG8640DwGn76JQ7gog}
 
+## 18. Eiri mengubah taktik penyerangan dengan menanamkan file malware menggunakan protokol file sharing SMB. Analisis file capture wired_smb_transfer.pcapng untuk mengidentifikasi nama protokol jaringan yang dieksploitasi, IP pengirim dan penerima, folder tujuan penyimpanan malware pada sistem korban, serta nama file executable malware yang ditransfer. Validasi temuan kalian pada socket server:
+(link file) nc [IP_Group] 3405
+
+## 18.1 Membuka file Wireshark dan menerapkan Display
+
+```
+smb || smb2
+```
+
+<img width="1918" height="481" alt="image" src="https://github.com/user-attachments/assets/57dbb5b8-8161-4306-8793-25875d2a0881" />
+
+## 18.2 Mengidentifikasi Poin-Poin dari Jawaban
+
+1. Nama protokol jaringan yang dieksploitasi
+   
+Berdasarkan screenshot di tahap 18.1 kita bisa melihat bahwa nama protokol jaringan yang dieksploitasi itu SMB2 (Server Message Block Version 2)
+
+2. IP Pengirim & IP Penerima
+
+   <img width="1920" height="52" alt="image" src="https://github.com/user-attachments/assets/7bb43ada-b094-4d4c-bbf4-3b15b200872f" />
+
+	Berdasarkan paket request pembuatan/transfer file Create Request File, kita bisa melihat IP pengirim dari source dan IP Penerima dari destination yaitu:
+
+	IP Pengirim: 10.7.3.100
+	IP Penerima: 10.7.1.50
+
+3. Folder tujuan & Nama File Executable Malware
+
+   <img width="1538" height="887" alt="image" src="https://github.com/user-attachments/assets/2d881913-2585-463d-a43f-38a2370e5677" />
+
+	Berdasarkan screenshot diatas folder tujuan dari file tersebut adalah: \\10.7.1.50\ADMIN$ yang merupakan folder default/tersembunyi di Windows yang biasanya mengarah ke folder C:\Windows. 
+
+Nama File Executable Malware: wired_trojan_payload.exe.
+
+4. Pengujian
+
+   <img width="1344" height="768" alt="image" src="https://github.com/user-attachments/assets/589242af-2771-4611-b99e-b3c44e00e765" />
+
+	flag: KOMJAR26{SMB_Tr4nsf3r_W1w5jGADRzrLoJjLQxtSYJGtg}
+   
 ## Kesimpulan
 
 Melalui rangkaian konfigurasi di atas, topologi "The Wired" berhasil dibangun dengan Router Lain sebagai gateway utama yang menghubungkan lima entitas melalui tiga switch, terkoneksi ke internet publik melalui NAT/DHCP, memiliki DNS resolver mandiri, konfigurasi persisten pasca-reboot, kemampuan monitoring traffic via Wireshark, layanan FTP Server dengan kebijakan akses berjenjang (read-write, read-only, dan blacklist), serta terbukti memiliki latensi jaringan yang stabil dengan packet loss 0% pada uji ketahanan koneksi antar node.
