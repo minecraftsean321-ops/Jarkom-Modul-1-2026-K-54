@@ -4,23 +4,26 @@ Laporan praktikum pembangunan topologi jaringan **"The Wired"** menggunakan GNS3
 
 ## Daftar Isi
 
-*  [1. Membangun Topologi Jaringan](#1-membangun-topologi-jaringan)
-*  [2. Konfigurasi Internet Gateway (NAT/DHCP) pada Router Lain](#2-konfigurasi-internet-gateway-natdhcp-pada-router-lain)
-*  [3. Konfigurasi Routing Antar Subnet](#3-konfigurasi-routing-antar-subnet)
-*  [4. NAT Masquerade & DNS Resolver untuk Setiap Client](#4-nat-masquerade--dns-resolver-untuk-setiap-client)
-*  [5. Persistensi Konfigurasi & Script Verifikasi](#5-persistensi-konfigurasi--script-verifikasi)
-*  [6. Analisis Traffic dengan Wireshark di Node Mika](#6-analisis-traffic-dengan-wireshark-di-node-mika)
-*  [7. FTP Server di Node Chisa dengan Kebijakan Akses](#7-ftp-server-di-node-chisa-dengan-kebijakan-akses)
-*  [8. Upload File FTP dari Knights ke Chisa](#8-upload-file-ftp-dari-knights-ke-chisa)
-*  [9. Pembatasan Read-Only Akun Mika di FTP Server](#9-pembatasan-read-only-akun-mika-di-ftp-server)
-*  [10. Uji Ketahanan Koneksi (Ping Stress Test)](#10-uji-ketahanan-koneksi-ping-stress-test)
-*  [16. Analisis FTP Credential Theft (wired_ftp_theft.pcap)](#16-analisis-ftp-credential-theft-wired_ftp_theftpcap)
-*  [17. Analisis HTTP C2 Payload Download (wired_http_c2.pcap)](#17-analisis-http-c2-payload-download-wired_http_c2pcap)
-*  [18. Analisis SMB Malware Transfer (wired_smb_transfer.pcapng)](#18-analisis-smb-malware-transfer-wired_smb_transferpcapng)
-*  [19. Analisis SMTP Extortion Email (wired_smtp_threat.pcap)](#19-analisis-smtp-extortion-email-wired_smtp_threatpcap)
-*  [20. Analisis TLS Decryption (wired_tls_decrypt.pcapng)](#20-analisis-tls-decryption-wired_tls_decryptpcapng)
-
-> **Catatan:** Penomoran bagian 16–20 mengikuti nomor soal pada modul praktikum asli (soal 11–15 tidak termasuk dalam cakupan kelompok ini).
+* [1. Membangun Topologi Jaringan](#1-membangun-topologi-jaringan)
+* [2. Konfigurasi Internet Gateway (NAT/DHCP) pada Router Lain](#2-konfigurasi-internet-gateway-natdhcp-pada-router-lain)
+* [3. Konfigurasi Routing Antar Subnet](#3-konfigurasi-routing-antar-subnet)
+* [4. NAT Masquerade & DNS Resolver untuk Setiap Client](#4-nat-masquerade--dns-resolver-untuk-setiap-client)
+* [5. Persistensi Konfigurasi & Script Verifikasi](#5-persistensi-konfigurasi--script-verifikasi)
+* [6. Analisis Traffic dengan Wireshark di Node Mika](#6-analisis-traffic-dengan-wireshark-di-node-mika)
+* [7. FTP Server di Node Chisa dengan Kebijakan Akses](#7-ftp-server-di-node-chisa-dengan-kebijakan-akses)
+* [8. Upload File FTP dari Knights ke Chisa](#8-upload-file-ftp-dari-knights-ke-chisa)
+* [9. Pembatasan Read-Only Akun Mika di FTP Server](#9-pembatasan-read-only-akun-mika-di-ftp-server)
+* [10. Uji Ketahanan Koneksi (Ping Stress Test)](#10-uji-ketahanan-koneksi-ping-stress-test)
+* [11. Test Kelemahan Protokol Telnet](#11-test-kelemahan-protokol-telnet)
+* [12. Pemindaian Port (Port Scanning) dengan Netcat (nc)](#12-pemindaian-port-port-scanning-dengan-netcat-nc)
+* [13. Konfigurasi Autentikasi SSH Berbasis Kunci (Key-Based Authentication)](#13-konfigurasi-autentikasi-ssh-berbasis-kunci-key-based-authentication-pengujian-koneksi--analisis-lalu-lintas-di-wireshark-analisis-keamanan-data-ssh-vs-telnet)
+* [14. Analisis Forensik PCAP & Serangan Brute-Force Web (HTTP/POST)](#14-analisis-forensik-lalu-lintas-data-pcap-analysis-analisis-serangan-brute-force-web-httppost-validasisubmit-jawaban-via-socket-server)
+* [15. Analisis Forensik USB HID & Rekonstruksi Keystroke](#15-analisis-forensik-usb-hid-human-interface-device-rekonstruksi-keystroke-usb-keystroke-data-extraction-validasi-jawaban-via-socket-server)
+* [16. Analisis FTP Credential Theft (wired_ftp_theft.pcap)](#16-analisis-ftp-credential-theft-wired_ftp_theftpcap)
+* [17. Analisis HTTP C2 Payload Download (wired_http_c2.pcap)](#17-analisis-http-c2-payload-download-wired_http_c2pcap)
+* [18. Analisis SMB Malware Transfer (wired_smb_transfer.pcapng)](#18-analisis-smb-malware-transfer-wired_smb_transferpcapng)
+* [19. Analisis SMTP Extortion Email (wired_smtp_threat.pcap)](#19-analisis-smtp-extortion-email-wired_smtp_threatpcap)
+* [20. Analisis TLS Decryption (wired_tls_decrypt.pcapng)](#20-analisis-tls-decryption-wired_tls_decryptpcapng)
 
 ---
 
@@ -298,16 +301,20 @@ icmp
 - **Performa & RTT:** latensi balasan paket pertama tercatat **0.616 ms**, dengan tingkat **packet loss 0%**.
 - **Kesimpulan:** koneksi antara segmen Knights dan Chisa berjalan **sangat stabil**, tanpa ada paket yang hilang selama 77 kali pengiriman dengan interval 0.3 detik.
 
-## 11. Test kelemahan protokol telnet
+---
 
-### Konfigurasi Server Telnet di Node Chisa
-<img width="519" height="73" alt="Screenshot 2026-09-16 at 17 37 31" src="https://github.com/user-attachments/assets/44cb001b-6c4e-49a1-96d5-9fb23fd03e25" />
+## 11. Test Kelemahan Protokol Telnet
 
-### Melakukan Capture Wireshark & Login dari Node Eiri
-<img width="727" height="633" alt="Screenshot 2026-09-16 at 22 34 31" src="https://github.com/user-attachments/assets/ba125d52-b108-45ef-93fe-0309e31ffe0d" />
-<img width="1048" height="789" alt="Screenshot 2026-09-16 at 22 37 06" src="https://github.com/user-attachments/assets/2fed6571-a38f-4882-b7d6-cd18e61ceb57" />
+### 11.1 Konfigurasi Server Telnet di Node Chisa
 
-### Mengapa setiap karakter terkirim dalam paket TCP terpisah?
+<img width="519" height="73" alt="Konfigurasi server Telnet di Chisa" src="https://github.com/user-attachments/assets/44cb001b-6c4e-49a1-96d5-9fb23fd03e25" />
+
+### 11.2 Capture Wireshark & Login dari Node Eiri
+
+<img width="727" height="633" alt="Wireshark capture login Telnet" src="https://github.com/user-attachments/assets/ba125d52-b108-45ef-93fe-0309e31ffe0d" />
+<img width="1048" height="789" alt="Detail paket login Telnet" src="https://github.com/user-attachments/assets/2fed6571-a38f-4882-b7d6-cd18e61ceb57" />
+
+### 11.3 Analisis: Mengapa Setiap Karakter Terkirim dalam Paket TCP Terpisah?
 
 Protokol Telnet beroperasi menggunakan mode interaktif (character-at-a-time / NVT). Setiap kali pengguna menekan satu tombol pada keyboard di sisi klien (Eiri), klien Telnet langsung membungkus 1 byte karakter tersebut ke dalam satu segmen/paket TCP tersendiri untuk dikirimkan secara langsung ke server (Chisa), agar server bisa langsung memproses dan menampilkan balasannya (echo) ke layar klien. Hal inilah yang menyebabkan setiap huruf dari username dan password terkirim dalam paket TCP individual yang terpisah, sehingga sangat rentan terhadap penyadapan (sniffing).
 
@@ -315,45 +322,98 @@ Protokol Telnet beroperasi menggunakan mode interaktif (character-at-a-time / NV
 
 ## 12. Pemindaian Port (Port Scanning) dengan Netcat (nc)
 
-### Setup Service di Node Knights (Target)
-<img width="749" height="550" alt="Screenshot 2026-09-16 at 22 49 20" src="https://github.com/user-attachments/assets/bb0916de-6d80-4ff1-92cd-204213658932" />
-### Start Wireshark & Pemindaian dari Node Alice
-<img width="739" height="535" alt="Screenshot 2026-09-16 at 22 57 48" src="https://github.com/user-attachments/assets/92d1a0e2-c691-45ae-8717-a808a1740eff" />
-<img width="974" height="790" alt="Screenshot 2026-09-16 at 22 57 36" src="https://github.com/user-attachments/assets/4922be99-31aa-48cd-9cd1-421d61358d35" />
+### 12.1 Setup Service di Node Knights (Target)
 
-### Analisis Perbedaan TCP Flag (Port Terbuka vs Port Tertutup):
+<img width="749" height="550" alt="Setup service di Knights" src="https://github.com/user-attachments/assets/bb0916de-6d80-4ff1-92cd-204213658932" />
 
-Port Terbuka (Port 22 & 80):
-Saat Alice mengirimkan paket pembuka [SYN], node Knights membalasnya dengan TCP Flag [SYN, ACK]. Hal ini menandakan bahwa port tersebut aktif, memiliki layanan (service listener) yang siap melayani koneksi, dan melanjutkan ke proses TCP 3-Way Handshake.
+### 12.2 Start Wireshark & Pemindaian dari Node Alice
 
-Port Tertutup (Port 7777):
-Saat Alice mengirimkan paket [SYN], node Knights membalasnya dengan TCP Flag [RST, ACK] (Reset). Flag RST dikirimkan secara otomatis oleh sistem operasi Knights karena tidak ada daemon/layanan yang mendengarkan (listening) di port 7777, sehingga permintaan koneksi langsung ditolak.
+<img width="739" height="535" alt="Start Wireshark di Alice" src="https://github.com/user-attachments/assets/92d1a0e2-c691-45ae-8717-a808a1740eff" />
+<img width="974" height="790" alt="Hasil pemindaian port dari Alice" src="https://github.com/user-attachments/assets/4922be99-31aa-48cd-9cd1-421d61358d35" />
+
+### 12.3 Analisis Perbedaan TCP Flag (Port Terbuka vs Port Tertutup)
+
+**Port Terbuka (Port 22 & 80):**
+Saat Alice mengirimkan paket pembuka `[SYN]`, node Knights membalasnya dengan TCP Flag `[SYN, ACK]`. Hal ini menandakan bahwa port tersebut aktif, memiliki layanan (service listener) yang siap melayani koneksi, dan melanjutkan ke proses TCP 3-Way Handshake.
+
+**Port Tertutup (Port 7777):**
+Saat Alice mengirimkan paket `[SYN]`, node Knights membalasnya dengan TCP Flag `[RST, ACK]` (Reset). Flag RST dikirimkan secara otomatis oleh sistem operasi Knights karena tidak ada daemon/layanan yang mendengarkan (listening) di port 7777, sehingga permintaan koneksi langsung ditolak.
 
 ---
+
 ## 13. Konfigurasi Autentikasi SSH Berbasis Kunci (Key-Based Authentication), Pengujian Koneksi & Analisis Lalu Lintas di Wireshark, Analisis Keamanan Data (SSH vs Telnet)
 
-### Langkah 1: Setup SSH Server di Node Knights
-<img width="735" height="378" alt="Screenshot 2026-09-16 at 23 57 47" src="https://github.com/user-attachments/assets/e370dbc4-e738-470f-93e0-06167bd9c490" />
+### 13.1 Setup SSH Server di Node Knights
 
-### Langkah 2: Generate Keypair di Node Mika & Pasang Public Key
-<img width="738" height="491" alt="Screenshot 2026-09-16 at 23 58 30" src="https://github.com/user-attachments/assets/7257cae6-c3dd-4794-a691-146ab334b791" />
-<img width="738" height="189" alt="Screenshot 2026-09-16 at 23 58 54" src="https://github.com/user-attachments/assets/92962bdb-a0a7-4d5b-8da3-f3b46f5f5a06" />
+<img width="735" height="378" alt="Setup SSH server di Knights" src="https://github.com/user-attachments/assets/e370dbc4-e738-470f-93e0-06167bd9c490" />
 
-### Langkah 3: Start Wireshark & Pengujian Login SSH
-<img width="732" height="97" alt="Screenshot 2026-09-16 at 23 59 07" src="https://github.com/user-attachments/assets/f6ee3dcd-04e1-4d08-8e07-4fe2ff3ea673" />
-<img width="739" height="533" alt="Screenshot 2026-09-16 at 23 59 45" src="https://github.com/user-attachments/assets/87822cea-c8fb-46a0-be2b-c414d9932a23" />
-<img width="1038" height="393" alt="Screenshot 2026-09-17 at 00 03 33" src="https://github.com/user-attachments/assets/32b091d0-b293-478b-9f33-bd0ae430538f" />
+### 13.2 Generate Keypair di Node Mika & Pasang Public Key
 
-## Mengapa kredensial tidak terlihat dalam bentuk teks terbuka seperti Telnet?
-- Proses Key Exchange (KEX): Sebelum autentikasi dimulai, SSH melakukan pertukaran kunci menggunakan algoritma kriptografi (seperti Diffie-Hellman). Proses ini menghasilkan session key simetris yang menyandikan seluruh saluran komunikasi.
+<img width="738" height="491" alt="Generate keypair SSH di Mika" src="https://github.com/user-attachments/assets/7257cae6-c3dd-4794-a691-146ab334b791" />
+<img width="738" height="189" alt="Pasang public key SSH" src="https://github.com/user-attachments/assets/92962bdb-a0a7-4d5b-8da3-f3b46f5f5a06" />
 
-- Tanpa Pengiriman Password: Pada autentikasi berbasis kunci (Public Key Authentication), password tidak pernah dikirimkan ke jaringan. Klien hanya membuktikan kepemilikan private key dengan mengirimkan tanda tangan digital (digital signature).
+### 13.3 Start Wireshark & Pengujian Login SSH
 
-- Kerahasiaan Data (Confidentiality): Karena seluruh payload diacak setelah proses KEX selesai, penyadap di Wireshark hanya dapat melihat paket berlabel Encrypted packet tanpa bisa membaca isi perintah maupun kredensialnya.
+<img width="732" height="97" alt="Start Wireshark sebelum login SSH" src="https://github.com/user-attachments/assets/f6ee3dcd-04e1-4d08-8e07-4fe2ff3ea673" />
+<img width="739" height="533" alt="Proses login SSH" src="https://github.com/user-attachments/assets/87822cea-c8fb-46a0-be2b-c414d9932a23" />
+<img width="1038" height="393" alt="Hasil capture Wireshark login SSH" src="https://github.com/user-attachments/assets/32b091d0-b293-478b-9f33-bd0ae430538f" />
+
+### 13.4 Analisis: Mengapa Kredensial Tidak Terlihat dalam Bentuk Teks Terbuka seperti Telnet?
+
+- **Proses Key Exchange (KEX):** Sebelum autentikasi dimulai, SSH melakukan pertukaran kunci menggunakan algoritma kriptografi (seperti Diffie-Hellman). Proses ini menghasilkan session key simetris yang menyandikan seluruh saluran komunikasi.
+- **Tanpa Pengiriman Password:** Pada autentikasi berbasis kunci (Public Key Authentication), password tidak pernah dikirimkan ke jaringan. Klien hanya membuktikan kepemilikan private key dengan mengirimkan tanda tangan digital (digital signature).
+- **Kerahasiaan Data (Confidentiality):** Karena seluruh payload diacak setelah proses KEX selesai, penyadap di Wireshark hanya dapat melihat paket berlabel *Encrypted packet* tanpa bisa membaca isi perintah maupun kredensialnya.
 
 ---
 
-14.
+## 14. Analisis Forensik Lalu Lintas Data (PCAP Analysis), Analisis Serangan Brute-Force Web (HTTP/POST), Validasi/Submit Jawaban via Socket Server
+
+### 14.1 Identifikasi IP Penyerang, IP Target, dan Port Target
+
+<img width="1470" height="956" alt="Filter HTTP POST brute-force" src="https://github.com/user-attachments/assets/8f381fdc-6801-473d-b0b7-50922326969b" />
+
+- Mengaplikasikan display filter `http.request.method == "POST"` pada file `wired_bruteforce.pcapng`.
+- Terlihat pengiriman paket HTTP `POST /login.php` secara masif dari IP `172.26.7.50` (penyerang/Eiri) menuju IP `172.26.7.100` (target/Alice) melalui port `8080`.
+- Berdasarkan header `User-Agent` (`Fuzz Faster U Fool v2.1.0-dev`), penyerang menggunakan automated tool `ffuf` untuk melancarkan serangan brute-force.
+
+<img width="152" height="250" alt="Detail User-Agent ffuf" src="https://github.com/user-attachments/assets/c15102a6-c28c-4b0a-8e88-528791430547" />
+
+### 14.2 Identifikasi Web Server Software dan Versi
+
+Melakukan pemeriksaan header respon HTTP dari target (melalui fitur *Follow HTTP Stream*). Pada response header dari server, ditemukan informasi software dan versi web server:
+
+<img width="980" height="310" alt="Header respons web server" src="https://github.com/user-attachments/assets/994e08c2-a8ed-42f3-9fcb-3761b2e4c36e" />
+
+### 14.3 Analisis Kredensial Berhasil User `lain_admin`
+
+Mengaplikasikan display filter `http contains "lain_admin"` untuk menyaring pengujian kata kunci spesifik untuk akun admin. Ditemukan paket request HTTP POST pada paket #350 dengan rincian *Form URL-Encoded payload*:
+
+<img width="1470" height="956" alt="Paket POST kredensial lain_admin" src="https://github.com/user-attachments/assets/01bb7a40-5f71-4269-97ab-32a486a9cd1a" />
+<img width="155" height="242" alt="Detail payload kredensial lain_admin" src="https://github.com/user-attachments/assets/bf8112f5-aba4-470c-8b3f-d955b36c26a1" />
+
+---
+
+## 15. Analisis Forensik USB HID (Human Interface Device), Rekonstruksi Keystroke USB (Keystroke Data Extraction), Validasi Jawaban via Socket Server
+
+### 15.1 Identifikasi Vendor ID, Product ID, dan Device Address
+
+<img width="1470" height="956" alt="Filter USB descriptor" src="https://github.com/user-attachments/assets/fac507e6-459c-4b6f-b330-537eb24beafa" />
+
+Mengaplikasikan display filter `usb.bDescriptorType == 1` untuk menyaring paket deskriptor perangkat. Pada paket balasan *GET DESCRIPTOR Response DEVICE* (Paket No. 2):
+
+<img width="1165" height="325" alt="Detail GET DESCRIPTOR Response DEVICE" src="https://github.com/user-attachments/assets/5c9dbac4-36e0-4d9a-9b62-b808962cb4de" />
+
+Membuka header USB URB untuk melihat *Device address*: `0`. Membuka header *DEVICE DESCRIPTOR* untuk mengidentifikasi `idVendor: 0x046d` dan `idProduct: 0xc31c`.
+
+### 15.2 Ekstraksi dan Dekode Keystroke USB HID
+
+Mengintegrasikan data paket *Interrupt IN* (`usb.capdata`) dari file pcap ke format plain text (`hex.txt`).
+
+<img width="738" height="149" alt="Ekstraksi data usb.capdata ke hex.txt" src="https://github.com/user-attachments/assets/7fb82fbc-31ac-4115-9ffd-8ff7eee6a45e" />
+
+Menjalankan skrip Python pemetaan HID Usage Table untuk mengonversi kode heksadesimal 8-byte menjadi karakter teks netral. Hasil rekonstruksi ketikan keyboard menghasilkan pesan rahasia: **`wired-protocol-7-is-alive-2026`**.
+
+<img width="738" height="538" alt="Hasil rekonstruksi keystroke" src="https://github.com/user-attachments/assets/e93635ba-1120-469e-ae3b-a96c7956dbaa" />
 
 ---
 
@@ -395,7 +455,7 @@ Banner software: **`vsftpd 3.0.5`**.
 
 **3. Kredensial login penyerang**
 
- <img width="1846" height="78" alt="image" src="https://github.com/user-attachments/assets/aa74048e-359e-462d-80a1-e7b763d116a8" />
+<img width="1846" height="78" alt="Kredensial login FTP penyerang" src="https://github.com/user-attachments/assets/aa74048e-359e-462d-80a1-e7b763d116a8" />
 
 - **USER:** `knights_agent`
 - **PASS:** `N4V1_s3cur3_2026`
@@ -583,7 +643,6 @@ Berdasarkan *destination* dari paket *Client Hello*, IP server HTTPS penyerang: 
 Filter Wireshark: `http`
 
 <img width="1920" height="135" alt="Filter HTTP hasil dekripsi" src="https://github.com/user-attachments/assets/8059a31f-22c5-40ba-bd7d-ecb4ad541cce" />
-
 <img width="1538" height="885" alt="Detail HTTP request hasil dekripsi" src="https://github.com/user-attachments/assets/a88ddf66-44a2-468e-a628-5f7f29a90878" />
 
 - **User-Agent:** `curl/7.62.0`
@@ -600,4 +659,4 @@ Filter Wireshark: `http`
 
 ## Kesimpulan
 
-Melalui rangkaian konfigurasi di atas, topologi "The Wired" berhasil dibangun dengan Router Lain sebagai gateway utama yang menghubungkan lima entitas melalui tiga switch, terkoneksi ke internet publik melalui NAT/DHCP, memiliki DNS resolver mandiri, konfigurasi persisten pasca-reboot, kemampuan monitoring traffic via Wireshark, layanan FTP Server dengan kebijakan akses berjenjang (read-write, read-only, dan blacklist), serta terbukti memiliki latensi jaringan yang stabil dengan packet loss 0% pada uji ketahanan koneksi antar node. Analisis forensik jaringan lanjutan (FTP, HTTP, SMB, SMTP, dan TLS) juga berhasil mengungkap seluruh jejak serangan Eiri beserta flag terkait pada tiap skenario.
+Melalui rangkaian konfigurasi di atas, topologi "The Wired" berhasil dibangun dengan Router Lain sebagai gateway utama yang menghubungkan lima entitas melalui tiga switch, terkoneksi ke internet publik melalui NAT/DHCP, memiliki DNS resolver mandiri, konfigurasi persisten pasca-reboot, kemampuan monitoring traffic via Wireshark, layanan FTP Server dengan kebijakan akses berjenjang (read-write, read-only, dan blacklist), serta terbukti memiliki latensi jaringan yang stabil dengan packet loss 0% pada uji ketahanan koneksi antar node. Analisis keamanan protokol (Telnet, port scanning, dan SSH key-based authentication) menunjukkan perbandingan langsung antara komunikasi tidak terenkripsi dan terenkripsi. Analisis forensik jaringan lanjutan (brute-force HTTP, USB HID, FTP, HTTP C2, SMB, SMTP, dan TLS) juga berhasil mengungkap seluruh jejak serangan Eiri beserta flag terkait pada tiap skenario.
