@@ -1,3 +1,5 @@
+<img width="729" height="475" alt="Screenshot 2026-09-17 at 22 51 48" src="https://github.com/user-attachments/assets/ae523f15-3fc9-4bc5-bbb4-8cd827638b78" />
+<img width="725" height="475" alt="Screenshot 2026-09-17 at 22 51 12" src="https://github.com/user-attachments/assets/ef4a9dcb-5251-469b-8f62-9145f593d914" />
 # Jarkom - Modul 1 (2026) - Kelompok 54
 
 Laporan praktikum pembangunan topologi jaringan **"The Wired"** menggunakan GNS3. Skenario mengikuti narasi Lain (Router) yang membangun infrastruktur jaringan untuk menghubungkan lima entitas (client): Alice, Mika, Chisa, Knights, dan Eiri.
@@ -177,8 +179,8 @@ Chisa mendirikan FTP Server (`vsftpd`) dengan shared folder di `/var/wired/data`
 | `eiri` | Blacklist (tanpa izin akses) |
 
 ### 7.1 Konfigurasi Utama `vsftpd`
+<img width="725" height="478" alt="Screenshot 2026-09-17 at 22 52 43" src="https://github.com/user-attachments/assets/8731a168-8da4-448f-b65c-0c89e3699b24" />
 
-<img width="791" height="557" alt="Konfigurasi vsftpd" src="https://github.com/user-attachments/assets/91361eb4-eeac-4921-9bdd-24adc395379e" />
 
 ### 7.2 Bukti 1 — User `alice` (Read & Write)
 
