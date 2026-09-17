@@ -1,4 +1,3 @@
-
 # Jarkom - Modul 1 (2026) - Kelompok 54
 
 Laporan praktikum pembangunan topologi jaringan **"The Wired"** menggunakan GNS3. Skenario mengikuti narasi Lain (Router) yang membangun infrastruktur jaringan untuk menghubungkan lima entitas (client): Alice, Mika, Chisa, Knights, dan Eiri.
