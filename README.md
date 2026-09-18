@@ -313,6 +313,8 @@ icmp
 
 <img width="727" height="633" alt="Wireshark capture login Telnet" src="https://github.com/user-attachments/assets/ba125d52-b108-45ef-93fe-0309e31ffe0d" />
 <img width="1048" height="789" alt="Detail paket login Telnet" src="https://github.com/user-attachments/assets/2fed6571-a38f-4882-b7d6-cd18e61ceb57" />
+<img width="1470" height="956" alt="Screenshot 2026-09-18 at 11 15 45" src="https://github.com/user-attachments/assets/f531a8d3-d545-4b10-995c-d775e862770b" />
+
 
 ### 11.3 Analisis: Mengapa Setiap Karakter Terkirim dalam Paket TCP Terpisah?
 
